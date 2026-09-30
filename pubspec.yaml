@@ -35,6 +35,10 @@ dependencies:
   # Localization
   easy_localization: ^3.0.7
 
+  # Flavors & Environment
+  flutter_flavor: ^3.1.2
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
