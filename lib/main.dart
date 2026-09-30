@@ -1,10 +1,26 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'app.dart';
+import 'package:flutter/services.dart';
 import 'src/core/theme/theme.dart';
+import 'src/presentation/features/home/view/home_view.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  await EasyLocalization.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en')],
+      path: 'assets/lang',
+      fallbackLocale: const Locale('en'),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,10 +30,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Clean Arch Template',
+      title: 'app_title'.tr(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: const App(),
+      home: const HomeView(),
     );
   }
 }
