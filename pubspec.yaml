@@ -19,6 +19,8 @@ dependencies:
   # State Management
   flutter_bloc: ^9.0.0
   bloc: ^9.0.0
+  equatable: ^2.0.7
+
 
   # Dependency Injection
   get_it: ^8.0.3
