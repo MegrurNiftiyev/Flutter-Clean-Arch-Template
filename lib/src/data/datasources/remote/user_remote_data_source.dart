@@ -1,29 +1,19 @@
-import '../../../domain/models/user_model.dart';
+import '../../models/request/user_update_request.dart';
+import '../../models/response/user_response.dart';
 
 abstract class IUserRemoteDataSource {
-  Future<UserModel> getUserProfile({
-    required String userId,
-  });
-
-  Future<UserModel> updateUserProfile({
-    required String userId,
-    String? name,
-  });
+  Future<UserResponse> getUserProfile(String userId);
+  Future<UserResponse> updateUserProfile(UserUpdateRequest request);
 }
 
 class UserRemoteDataSource implements IUserRemoteDataSource {
   @override
-  Future<UserModel> getUserProfile({
-    required String userId,
-  }) async {
+  Future<UserResponse> getUserProfile(String userId) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<UserModel> updateUserProfile({
-    required String userId,
-    String? name,
-  }) async {
+  Future<UserResponse> updateUserProfile(UserUpdateRequest request) async {
     throw UnimplementedError();
   }
 }

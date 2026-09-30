@@ -1,4 +1,5 @@
 import '../datasources/remote/user_remote_data_source.dart';
+import '../models/request/user_update_request.dart';
 import '../../domain/models/user_model.dart';
 import '../../domain/repositories/user_repository.dart';
 
@@ -13,7 +14,8 @@ class UserRepository implements IUserRepository {
   Future<UserModel> getUserProfile({
     required String userId,
   }) async {
-    return remoteDataSource.getUserProfile(userId: userId);
+    final response = await remoteDataSource.getUserProfile(userId);
+    return response.toDomain();
   }
 
   @override
@@ -21,6 +23,8 @@ class UserRepository implements IUserRepository {
     required String userId,
     String? name,
   }) async {
-    return remoteDataSource.updateUserProfile(userId: userId, name: name);
+    final request = UserUpdateRequest(userId: userId, name: name);
+    final response = await remoteDataSource.updateUserProfile(request);
+    return response.toDomain();
   }
 }

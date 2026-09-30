@@ -1,44 +1,26 @@
-import '../../../domain/models/user_model.dart';
+import '../../models/request/login_request.dart';
+import '../../models/request/register_request.dart';
+import '../../models/response/user_response.dart';
 
 abstract class IAuthRemoteDataSource {
-  Future<UserModel> login({
-    required String email,
-    required String password,
-  });
-
-  Future<UserModel> register({
-    required String email,
-    required String password,
-    String? name,
-  });
-
-  Future<void> forgotPassword({
-    required String email,
-  });
+  Future<UserResponse> login(LoginRequest request);
+  Future<UserResponse> register(RegisterRequest request);
+  Future<void> forgotPassword(String email);
 }
 
 class AuthRemoteDataSource implements IAuthRemoteDataSource {
   @override
-  Future<UserModel> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<UserResponse> login(LoginRequest request) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<UserModel> register({
-    required String email,
-    required String password,
-    String? name,
-  }) async {
+  Future<UserResponse> register(RegisterRequest request) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> forgotPassword({
-    required String email,
-  }) async {
+  Future<void> forgotPassword(String email) async {
     throw UnimplementedError();
   }
 }

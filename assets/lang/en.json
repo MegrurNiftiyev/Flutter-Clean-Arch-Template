@@ -1,4 +1,18 @@
 {
   "app_title": "Flutter Clean Arch Template",
-  "welcome": "Welcome"
+  "home": {
+    "title": "Home",
+    "welcome": "Welcome"
+  },
+  "splash": {
+    "title": "Splash Screen"
+  },
+  "settings": {
+    "title": "Settings"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "forgot_password": "Forgot Password"
+  }
 }

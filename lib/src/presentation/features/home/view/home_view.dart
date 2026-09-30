@@ -8,10 +8,10 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('app_title'.tr()),
+        title: Text('home.title'.tr()),
       ),
       body: Center(
-        child: Text('welcome'.tr()),
+        child: Text('home.welcome'.tr()),
       ),
     );
   }
