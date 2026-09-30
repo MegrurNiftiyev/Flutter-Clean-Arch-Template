@@ -1,5 +1,11 @@
 {
-  "app_title": "Flutter Clean Arch Template",
+  "general": {
+    "app_title": "Flutter Clean Arch Template",
+    "error": "An error occurred",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "retry": "Retry"
+  },
   "home": {
     "title": "Home",
     "welcome": "Welcome"
