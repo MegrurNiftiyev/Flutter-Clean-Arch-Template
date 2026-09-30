@@ -1,7 +1,20 @@
-abstract class HomeState {
-  const HomeState();
-}
+import 'package:equatable/equatable.dart';
 
-class HomeInitial extends HomeState {
-  const HomeInitial();
+class HomeState extends Equatable {
+  const HomeState({
+    this.isLoading = false,
+  });
+
+  final bool isLoading;
+
+  HomeState copyWith({
+    bool? isLoading,
+  }) {
+    return HomeState(
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
+
+  @override
+  List<Object?> get props => [isLoading];
 }
