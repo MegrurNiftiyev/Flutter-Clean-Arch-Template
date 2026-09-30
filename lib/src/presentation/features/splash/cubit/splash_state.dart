@@ -3,7 +3,7 @@ import '../../../../core/enums/status.dart';
 
 class SplashState extends Equatable {
   const SplashState({
-    this.status = Status.INITIAL,
+    this.status = Status.Initial,
   });
 
   final Status status;

@@ -3,7 +3,7 @@ import '../../../../core/enums/status.dart';
 
 class SettingsState extends Equatable {
   const SettingsState({
-    this.status = Status.INITIAL,
+    this.status = Status.Initial,
   });
 
   final Status status;
