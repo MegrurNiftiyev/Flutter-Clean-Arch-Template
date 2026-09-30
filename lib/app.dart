@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'src/core/theme/theme.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Clean Arch Template',
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Flutter Clean Architecture Template'),
-        ),
+    return const Scaffold(
+      body: Center(
+        child: Text('Flutter Clean Architecture Template'),
       ),
     );
   }
