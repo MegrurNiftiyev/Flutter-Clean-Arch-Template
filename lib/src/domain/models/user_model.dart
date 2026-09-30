@@ -1,7 +1,7 @@
 import 'base/base_model.dart';
 import 'base/timestamp_model.dart';
 
-class UserModel extends BaseModel implements ITimestamp {
+class UserModel extends BaseModel implements TimestampModel {
   const UserModel({
     required super.id,
     required this.email,

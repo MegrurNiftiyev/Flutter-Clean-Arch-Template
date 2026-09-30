@@ -5,11 +5,11 @@ import '../../data/datasources/remote/user_remote_data_source.dart';
 final GetIt _sl = GetIt.instance;
 
 void setupDataSources() {
-  _sl.registerLazySingleton<IAuthRemoteDataSource>(
-    () => AuthRemoteDataSource(),
+  _sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(),
   );
 
-  _sl.registerLazySingleton<IUserRemoteDataSource>(
-    () => UserRemoteDataSource(),
+  _sl.registerLazySingleton<UserRemoteDataSource>(
+    () => UserRemoteDataSourceImpl(),
   );
 }

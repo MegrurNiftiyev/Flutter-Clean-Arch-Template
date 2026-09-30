@@ -9,7 +9,7 @@ class AuthRepository implements IAuthRepository {
     required this.remoteDataSource,
   });
 
-  final IAuthRemoteDataSource remoteDataSource;
+  final AuthRemoteDataSource remoteDataSource;
 
   @override
   Future<UserModel> login({

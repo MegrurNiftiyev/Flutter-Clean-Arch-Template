@@ -8,7 +8,7 @@ class UserRepository implements IUserRepository {
     required this.remoteDataSource,
   });
 
-  final IUserRemoteDataSource remoteDataSource;
+  final UserRemoteDataSource remoteDataSource;
 
   @override
   Future<UserModel> getUserProfile({
