@@ -8,7 +8,7 @@ import 'src/presentation/features/home/view/home_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await setupLocator();
+  await initializeDependencies();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

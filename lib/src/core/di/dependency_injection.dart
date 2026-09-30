@@ -6,9 +6,9 @@ import 'use_cases.dart';
 
 final GetIt sl = GetIt.instance;
 
-Future<void> setupLocator() async {
-  setupDataSources();
-  setupRepositories();
-  setupUseCases();
-  setupCubits();
+Future<void> initializeDependencies() async {
+  initializeDataSources();
+  initializeRepositories();
+  initializeUseCases();
+  initializeCubits();
 }

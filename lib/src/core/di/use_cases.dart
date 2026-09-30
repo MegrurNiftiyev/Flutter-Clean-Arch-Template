@@ -5,7 +5,7 @@ import '../../domain/usecases/user/get_user_profile_use_case.dart';
 import '../../domain/usecases/user/update_user_profile_use_case.dart';
 import 'dependency_injection.dart';
 
-void setupUseCases() {
+void initializeUseCases() {
   sl.registerLazySingleton(
     () => LoginUseCase(repository: sl()),
   );

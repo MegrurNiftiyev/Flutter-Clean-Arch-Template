@@ -3,7 +3,7 @@ import '../../presentation/features/auth/cubit/register/register_cubit.dart';
 import '../../presentation/features/splash/cubit/splash_cubit.dart';
 import 'dependency_injection.dart';
 
-void setupCubits() {
+void initializeCubits() {
   sl.registerFactory(
     () => LoginCubit(loginUseCase: sl()),
   );
