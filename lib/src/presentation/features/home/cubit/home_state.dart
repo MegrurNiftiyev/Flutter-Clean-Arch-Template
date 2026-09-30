@@ -1,20 +1,21 @@
 import 'package:equatable/equatable.dart';
+import '../../../../core/enums/status.dart';
 
 class HomeState extends Equatable {
   const HomeState({
-    this.isLoading = false,
+    this.status = Status.initial,
   });
 
-  final bool isLoading;
+  final Status status;
 
   HomeState copyWith({
-    bool? isLoading,
+    Status? status,
   }) {
     return HomeState(
-      isLoading: isLoading ?? this.isLoading,
+      status: status ?? this.status,
     );
   }
 
   @override
-  List<Object?> get props => [isLoading];
+  List<Object?> get props => [status];
 }
