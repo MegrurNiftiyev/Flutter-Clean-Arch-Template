@@ -1,6 +1,6 @@
 # Flutter Clean Architecture Template
 
-A production-ready, scalable starter template for Flutter applications built following the principles of **Clean Architecture**, **Feature-First Presentation**, and **BSoD/Cubit State Management**.
+A production-ready, scalable starter template for Flutter applications built following the principles of **Clean Architecture**, **Feature-First Presentation**, and **BLoC / Cubit State Management**.
 
 ---
 
@@ -8,38 +8,47 @@ A production-ready, scalable starter template for Flutter applications built fol
 
 ```
 lib/
-├── main.dart
-├── gen/
+├── main.dart                     # App entry point with EasyLocalization & Orientation lock
+├── app.dart                      # Scaffold root view
+├── gen/                          # Generated assets (flutter_gen)
 └── src/
     ├── core/
-    │   ├── components/
-    │   ├── constants/
-    │   ├── di/                   # Dependency Injection locator (GetIt)
+    │   ├── components/           # Core UI components
+    │   ├── constants/            # App constants
+    │   ├── di/                   # Modularized Dependency Injection (GetIt)
+    │   │   ├── cubits.dart
+    │   │   ├── data_sources.dart
+    │   │   ├── dependency_injection.dart
+    │   │   ├── repositories.dart
+    │   │   └── use_cases.dart
     │   ├── enums/                # Global Enums (Status: Initial, Loading, Success, Failure)
-    │   ├── extensions/
+    │   ├── extensions/           # Helper extensions
     │   ├── interceptors/         # Dio Interceptors
-    │   ├── managers/
+    │   ├── managers/             # State & Cache managers
     │   └── theme/                # Light & Dark AppTheme and AppColors
     ├── data/
     │   ├── datasources/
-    │   │   ├── local/
+    │   │   ├── local/            # Local Data Sources (Hive / SharedPref)
     │   │   └── remote/           # Remote Data Sources (AuthRemoteDataSource, UserRemoteDataSource)
     │   ├── models/
-    │   │   ├── dto/
+    │   │   ├── dto/              # Data Transfer Objects
     │   │   ├── request/          # API Request DTOs (LoginRequest, UserUpdateRequest)
     │   │   └── response/         # API Response DTOs with toDomain() converter
     │   └── repositories/         # Repository implementations
     ├── domain/
     │   ├── models/
-    │   │   └── base/             # BaseModel (id) & ITimestamp (createdAt, updatedAt)
-    │   └── repositories/         # Abstract repository interfaces (IAuthRepository, IUserRepository)
+    │   │   └── base/             # BaseModel (id) & TimestampModel (createdAt, updatedAt)
+    │   ├── repositories/         # Abstract repository interfaces (IAuthRepository, IUserRepository)
+    │   └── usecases/             # Single-responsibility Use Cases
+    │       ├── auth/             # LoginUseCase, RegisterUseCase, ForgotPasswordUseCase
+    │       └── user/             # GetUserProfileUseCase, UpdateUserProfileUseCase
     └── presentation/
         ├── features/
         │   ├── auth/             # Login & Register pages + Cubits
         │   ├── home/             # Home view + Cubit
         │   ├── settings/         # Settings view + Cubit
         │   └── splash/           # Splash screen + Cubit
-        └── widgets/              # Shared UI components
+        └── widgets/              # Shared presentation widgets
 ```
 
 ---
@@ -52,6 +61,7 @@ lib/
 - **Networking**: [dio](https://pub.dev/packages/dio)
 - **Local Storage**: [hive](https://pub.dev/packages/hive) & [hive_flutter](https://pub.dev/packages/hive_flutter)
 - **Localization**: [easy_localization](https://pub.dev/packages/easy_localization)
+- **Flavors**: [flutter_flavor](https://pub.dev/packages/flutter_flavor)
 - **Code Generation**: [build_runner](https://pub.dev/packages/build_runner), [hive_generator](https://pub.dev/packages/hive_generator), [flutter_gen_runner](https://pub.dev/packages/flutter_gen_runner)
 - **UI Components**: [flutter_svg](https://pub.dev/packages/flutter_svg), [font_awesome_flutter](https://pub.dev/packages/font_awesome_flutter), [skeletonizer](https://pub.dev/packages/skeletonizer), [flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
 
