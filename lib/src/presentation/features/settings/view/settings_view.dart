@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SettingsView extends StatelessWidget {
@@ -7,10 +8,10 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text('settings.title'.tr()),
       ),
-      body: const Center(
-        child: Text('Settings View'),
+      body: Center(
+        child: Text('settings.welcome'.tr()),
       ),
     );
   }

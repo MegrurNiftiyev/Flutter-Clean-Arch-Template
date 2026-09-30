@@ -8,11 +8,13 @@
     "title": "Splash Screen"
   },
   "settings": {
-    "title": "Settings"
+    "title": "Settings",
+    "welcome": "Settings View"
   },
   "auth": {
     "login": "Login",
     "register": "Register",
-    "forgot_password": "Forgot Password"
+    "forgot_password": "Forgot Password",
+    "login_page": "Login Page"
   }
 }

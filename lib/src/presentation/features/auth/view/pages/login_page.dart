@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,10 +8,10 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text('auth.login'.tr()),
       ),
-      body: const Center(
-        child: Text('Login Page'),
+      body: Center(
+        child: Text('auth.login_page'.tr()),
       ),
     );
   }
