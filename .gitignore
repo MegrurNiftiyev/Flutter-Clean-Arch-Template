@@ -12,6 +12,8 @@
 .swiftpm/
 migrate_working_dir/
 Thumbs.db
+AGENTS.md
+
 
 # Environment & Secrets
 .env
