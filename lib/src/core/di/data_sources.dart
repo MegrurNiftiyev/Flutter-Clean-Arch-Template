@@ -1,15 +1,13 @@
-import 'package:get_it/get_it.dart';
 import '../../data/datasources/remote/auth_remote_data_source.dart';
 import '../../data/datasources/remote/user_remote_data_source.dart';
-
-final GetIt _sl = GetIt.instance;
+import 'dependency_injection.dart';
 
 void setupDataSources() {
-  _sl.registerLazySingleton<AuthRemoteDataSource>(
+  sl.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSource(),
   );
 
-  _sl.registerLazySingleton<UserRemoteDataSource>(
+  sl.registerLazySingleton<UserRemoteDataSource>(
     () => UserRemoteDataSource(),
   );
 }

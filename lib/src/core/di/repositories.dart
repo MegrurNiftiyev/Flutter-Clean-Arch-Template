@@ -1,17 +1,15 @@
-import 'package:get_it/get_it.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/repositories/user_repository.dart';
-
-final GetIt _sl = GetIt.instance;
+import 'dependency_injection.dart';
 
 void setupRepositories() {
-  _sl.registerLazySingleton<IAuthRepository>(
-    () => AuthRepository(remoteDataSource: _sl()),
+  sl.registerLazySingleton<IAuthRepository>(
+    () => AuthRepository(remoteDataSource: sl()),
   );
 
-  _sl.registerLazySingleton<IUserRepository>(
-    () => UserRepository(remoteDataSource: _sl()),
+  sl.registerLazySingleton<IUserRepository>(
+    () => UserRepository(remoteDataSource: sl()),
   );
 }
