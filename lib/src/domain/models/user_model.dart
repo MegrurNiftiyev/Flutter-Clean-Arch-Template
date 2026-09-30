@@ -1,16 +1,21 @@
-import 'package:equatable/equatable.dart';
+import 'base/base_model.dart';
+import 'base/timestamp_model.dart';
 
-class UserModel extends Equatable {
+class UserModel extends BaseModel implements ITimestamp {
   const UserModel({
-    required this.id,
+    required super.id,
     required this.email,
     this.name,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  final String id;
   final String email;
   final String? name;
 
   @override
-  List<Object?> get props => [id, email, name];
+  final DateTime? createdAt;
+
+  @override
+  final DateTime? updatedAt;
 }
