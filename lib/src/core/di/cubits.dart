@@ -7,14 +7,14 @@ final GetIt _sl = GetIt.instance;
 
 void setupCubits() {
   _sl.registerFactory(
-    () => LoginCubit(authRepository: _sl()),
+    () => LoginCubit(loginUseCase: _sl()),
   );
 
   _sl.registerFactory(
-    () => RegisterCubit(authRepository: _sl()),
+    () => RegisterCubit(registerUseCase: _sl()),
   );
 
   _sl.registerFactory(
-    () => SplashCubit(userRepository: _sl()),
+    () => SplashCubit(getUserProfileUseCase: _sl()),
   );
 }
