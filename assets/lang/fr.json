@@ -1,0 +1,26 @@
+{
+  "general": {
+    "app_title": "Modèle d'Architecture Propre Flutter",
+    "error": "Une erreur est survenue",
+    "ok": "OK",
+    "cancel": "Annuler",
+    "retry": "Réessayer"
+  },
+  "home": {
+    "title": "Accueil",
+    "welcome": "Bienvenue"
+  },
+  "splash": {
+    "title": "Écran de Démarrage"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "welcome": "Page de Paramètres"
+  },
+  "auth": {
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "forgot_password": "Mot de passe oublié",
+    "login_page": "Page de Connexion"
+  }
+}

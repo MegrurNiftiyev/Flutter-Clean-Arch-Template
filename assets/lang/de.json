@@ -1,0 +1,26 @@
+{
+  "general": {
+    "app_title": "Flutter Saubere Architektur Vorlage",
+    "error": "Ein Fehler ist aufgetreten",
+    "ok": "OK",
+    "cancel": "Abbrechen",
+    "retry": "Wiederholen"
+  },
+  "home": {
+    "title": "Startseite",
+    "welcome": "Willkommen"
+  },
+  "splash": {
+    "title": "Startbildschirm"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "welcome": "Einstellungen Ansicht"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "forgot_password": "Passwort vergessen",
+    "login_page": "Anmeldeseite"
+  }
+}

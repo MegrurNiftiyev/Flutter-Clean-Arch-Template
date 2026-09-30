@@ -1,0 +1,26 @@
+{
+  "general": {
+    "app_title": "Plantilla de Arquitectura Limpia Flutter",
+    "error": "Ocurrió un error",
+    "ok": "Aceptar",
+    "cancel": "Cancelar",
+    "retry": "Reintentar"
+  },
+  "home": {
+    "title": "Inicio",
+    "welcome": "Bienvenido"
+  },
+  "splash": {
+    "title": "Pantalla de Inicio"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "welcome": "Vista de Ajustes"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "login_page": "Página de Inicio de Sesión"
+  }
+}

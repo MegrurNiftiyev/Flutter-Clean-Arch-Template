@@ -1,0 +1,26 @@
+{
+  "general": {
+    "app_title": "Flutter Temiz Mimari Şablonu",
+    "error": "Bir hata oluştu",
+    "ok": "Tamam",
+    "cancel": "İptal",
+    "retry": "Tekrar Dene"
+  },
+  "home": {
+    "title": "Ana Sayfa",
+    "welcome": "Hoş Geldiniz"
+  },
+  "splash": {
+    "title": "Açılış Ekranı"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "welcome": "Ayarlar Sayfası"
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "forgot_password": "Şifremi Unuttum",
+    "login_page": "Giriş Sayfası"
+  }
+}

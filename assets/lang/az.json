@@ -1,0 +1,26 @@
+{
+  "general": {
+    "app_title": "Flutter Təmiz Arxitektura Şablonu",
+    "error": "Xəta baş verdi",
+    "ok": "Oldu",
+    "cancel": "Ləğv et",
+    "retry": "Yenidən cəhd et"
+  },
+  "home": {
+    "title": "Ana Səhifə",
+    "welcome": "Xoş gəlmisiniz"
+  },
+  "splash": {
+    "title": "Açılış Ekranı"
+  },
+  "settings": {
+    "title": "Tənzimləmələr",
+    "welcome": "Tənzimləmələr Bölməsi"
+  },
+  "auth": {
+    "login": "Daxil ol",
+    "register": "Qeydiyyatdan keç",
+    "forgot_password": "Şifrəni unutmusunuz",
+    "login_page": "Daxilolma Səhifəsi"
+  }
+}
