@@ -6,10 +6,10 @@ final GetIt _sl = GetIt.instance;
 
 void setupDataSources() {
   _sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(),
+    () => AuthRemoteDataSource(),
   );
 
   _sl.registerLazySingleton<UserRemoteDataSource>(
-    () => UserRemoteDataSourceImpl(),
+    () => UserRemoteDataSource(),
   );
 }
