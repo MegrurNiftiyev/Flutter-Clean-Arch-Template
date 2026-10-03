@@ -15,4 +15,14 @@ abstract class IAuthRepository {
   Future<void> forgotPassword({
     required String email,
   });
+
+  Future<String> verifyOtp({
+    required String email,
+    required String otpCode,
+  });
+
+  Future<void> resetPassword({
+    required String resetToken,
+    required String newPassword,
+  });
 }

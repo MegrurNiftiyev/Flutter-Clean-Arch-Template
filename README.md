@@ -1,6 +1,6 @@
 # Flutter Clean Architecture Template
 
-A production-ready, scalable starter template for Flutter applications built following the principles of **Clean Architecture**, **Feature-First Presentation**, and **BLoC / Cubit State Management**.
+A production-ready, highly scalable starter template for Flutter applications built following the principles of **Clean Architecture**, **Feature-First Presentation**, **GoRouter Routing**, **ScreenUtil Responsiveness**, and **BLoC / Cubit State Management**.
 
 ---
 
@@ -8,31 +8,33 @@ A production-ready, scalable starter template for Flutter applications built fol
 
 ```
 lib/
-├── main.dart                     # App entry point with EasyLocalization & Orientation lock
-├── app.dart                      # Scaffold root view
+├── main.dart                     # App entry point with EasyLocalization, ScreenUtil & GoRouter
 ├── gen/                          # Generated assets (flutter_gen)
 └── src/
     ├── core/
     │   ├── components/           # Core UI components
-    │   ├── constants/            # App constants
+    │   ├── constants/            # App constants (AppPaddings, AppSpaces, AppIconSizes, ApiConstants, CacheKeys)
     │   ├── di/                   # Modularized Dependency Injection (GetIt)
     │   │   ├── cubits.dart
     │   │   ├── data_sources.dart
     │   │   ├── dependency_injection.dart
+    │   │   ├── managers.dart
+    │   │   ├── network.dart
     │   │   ├── repositories.dart
     │   │   └── use_cases.dart
-    │   ├── enums/                # Global Enums (Status: Initial, Loading, Success, Failure)
-    │   ├── extensions/           # Helper extensions
-    │   ├── interceptors/         # Dio Interceptors
-    │   ├── managers/             # State & Cache managers
-    │   └── theme/                # Light & Dark AppTheme and AppColors
+    │   ├── enums/                # Enums (Status, AppLanguage, AppRegion, etc.)
+    │   ├── extensions/           # Extensions (StringValidatorExtensions)
+    │   ├── interceptors/         # Dio Interceptors (AuthInterceptor, LocalizationInterceptor, ErrorInterceptor)
+    │   ├── managers/             # Core Managers (EnvManager, NetworkManager, CacheManager, EncryptedCacheManager)
+    │   ├── router/               # AppRouter & AppRoute Enum
+    │   └── theme/                # Light & Dark AppTheme, AppColors, AppTextStyles, AppBoxShadows
     ├── data/
     │   ├── datasources/
-    │   │   ├── local/            # Local Data Sources (Hive / SharedPref)
+    │   │   ├── local/            # Local Data Sources (Hive / EncryptedStorage)
     │   │   └── remote/           # Remote Data Sources (AuthRemoteDataSource, UserRemoteDataSource)
     │   ├── models/
-    │   │   ├── dto/              # Data Transfer Objects
-    │   │   ├── request/          # API Request DTOs (LoginRequest, UserUpdateRequest)
+    │   │   ├── dto/              # Data Transfer Objects (UserDto, AuthDto)
+    │   │   ├── request/          # API Request DTOs (LoginRequest, RegisterRequest, ForgotPasswordRequest, etc.)
     │   │   └── response/         # API Response DTOs with toDomain() converter
     │   └── repositories/         # Repository implementations
     ├── domain/
@@ -40,16 +42,28 @@ lib/
     │   │   └── base/             # BaseModel (id) & TimestampModel (createdAt, updatedAt)
     │   ├── repositories/         # Abstract repository interfaces (IAuthRepository, IUserRepository)
     │   └── usecases/             # Single-responsibility Use Cases
-    │       ├── auth/             # LoginUseCase, RegisterUseCase, ForgotPasswordUseCase
+    │       ├── auth/             # LoginUseCase, RegisterUseCase, ForgotPasswordUseCase, VerifyOtpUseCase, ResetPasswordUseCase
     │       └── user/             # GetUserProfileUseCase, UpdateUserProfileUseCase
     └── presentation/
         ├── features/
-        │   ├── auth/             # Login & Register pages + Cubits
+        │   ├── auth/             # Login, Register, Forgot Password, Verify OTP, Reset Password pages + Cubits
+        │   ├── error/            # Error / Fallback Page for GoRouter error handling
         │   ├── home/             # Home view + Cubit
+        │   ├── onboarding/        # Onboarding Page + Cubit with Hive completion caching
         │   ├── settings/         # Settings view + Cubit
-        │   └── splash/           # Splash screen + Cubit
-        └── widgets/              # Shared presentation widgets
+        │   └── splash/           # Splash screen + Cubit (checks Onboarding -> Token -> User profile)
+        └── widgets/              # Shared presentation widgets (CustomButton, CustomTextField)
 ```
+
+---
+
+## 🎨 UI Styling & Design System Rules
+
+1. **Paddings & Spacings**: All paddings use predefined `AppPaddings` (`lib/src/core/constants/paddings.dart`) and `AppSpaces` (`lib/src/core/constants/spaces.dart`) adapted via `flutter_screenutil`.
+2. **Icon Sizes**: All icon dimensions use `AppIconSizes` (`lib/src/core/constants/icon_sizes.dart`) using ScreenUtil `.r` dimensions.
+3. **Box Shadows & Elevations**: Elevation and card shadows use `AppBoxShadows` (`lib/src/core/theme/box_shadows.dart`).
+4. **Colors**: Palette defined in `AppColors` (`lib/src/core/theme/colors.dart`). No hardcoded hex or raw inline colors.
+5. **Typography**: Fonts defined in `AppTextStyles` (`lib/src/core/theme/text_styles.dart`) using responsive `.sp` sizes.
 
 ---
 
@@ -57,13 +71,14 @@ lib/
 
 - **Framework**: [Flutter](https://flutter.dev)
 - **State Management**: [flutter_bloc](https://pub.dev/packages/flutter_bloc) / Cubit & [equatable](https://pub.dev/packages/equatable)
+- **Navigation & Routing**: [go_router](https://pub.dev/packages/go_router)
+- **Screen Responsiveness**: [flutter_screenutil](https://pub.dev/packages/flutter_screenutil)
 - **Dependency Injection**: [get_it](https://pub.dev/packages/get_it)
 - **Networking**: [dio](https://pub.dev/packages/dio)
-- **Local Storage**: [hive](https://pub.dev/packages/hive) & [hive_flutter](https://pub.dev/packages/hive_flutter)
+- **Local Storage & Security**: [hive](https://pub.dev/packages/hive), [hive_flutter](https://pub.dev/packages/hive_flutter), [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage)
+- **Environment Management**: [flutter_dotenv](https://pub.dev/packages/flutter_dotenv)
 - **Localization**: [easy_localization](https://pub.dev/packages/easy_localization)
 - **Flavors**: [flutter_flavor](https://pub.dev/packages/flutter_flavor)
-- **Code Generation**: [build_runner](https://pub.dev/packages/build_runner), [hive_generator](https://pub.dev/packages/hive_generator), [flutter_gen_runner](https://pub.dev/packages/flutter_gen_runner)
-- **UI Components**: [flutter_svg](https://pub.dev/packages/flutter_svg), [font_awesome_flutter](https://pub.dev/packages/font_awesome_flutter), [skeletonizer](https://pub.dev/packages/skeletonizer), [flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
 
 ---
 
@@ -80,12 +95,7 @@ cd Flutter-Clean-Arch-Template
 flutter pub get
 ```
 
-### 3. Run code generation (optional)
-```bash
-flutter pub run build_runner build --delete-conflicting-outputs
-```
-
-### 4. Run the app
+### 3. Run the app
 ```bash
 flutter run
 ```

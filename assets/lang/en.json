@@ -2,6 +2,7 @@
   "general": {
     "app_title": "Flutter Clean Arch Template",
     "error": "An error occurred",
+    "error_default": "Page not found or an unexpected error occurred.",
     "ok": "OK",
     "cancel": "Cancel",
     "retry": "Retry"
@@ -13,14 +14,49 @@
   "splash": {
     "title": "Splash Screen"
   },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "get_started": "Get Started",
+    "title_1": "Welcome to Clean Architecture",
+    "desc_1": "A robust starter template following Clean Architecture guidelines for Flutter.",
+    "title_2": "Modular & Production Ready",
+    "desc_2": "Equipped with Dio, Hive, GetIt, GoRouter, ScreenUtil, and EasyLocalization.",
+    "title_3": "Get Started Today",
+    "desc_3": "Start building your next high-performance Flutter application effortlessly."
+  },
   "settings": {
     "title": "Settings",
-    "welcome": "Settings View"
+    "welcome": "Settings View",
+    "dark_mode": "Dark Mode",
+    "language": "Language",
+    "logout": "Logout",
+    "logout_confirm": "Are you sure you want to log out?",
+    "lang_en": "English",
+    "lang_az": "Azərbaycan",
+    "lang_tr": "Türkçe",
+    "lang_ru": "Русский",
+    "lang_es": "Español",
+    "lang_de": "Deutsch",
+    "lang_fr": "Français",
+    "lang_ar": "العربية"
   },
   "auth": {
     "login": "Login",
     "register": "Register",
     "forgot_password": "Forgot Password",
-    "login_page": "Login Page"
+    "login_page": "Login Page",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "dont_have_account": "Don't have an account? Register",
+    "already_have_account": "Already have an account? Login",
+    "send_code": "Send Code",
+    "verify_otp": "Verify OTP",
+    "otp_code": "OTP Code",
+    "verify": "Verify",
+    "otp_verified_success": "OTP verified successfully. Redirecting...",
+    "new_password": "New Password",
+    "reset_password": "Reset Password"
   }
 }
