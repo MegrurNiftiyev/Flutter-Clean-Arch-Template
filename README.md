@@ -157,22 +157,21 @@ class AuthRepository implements IAuthRepository {
 
 ```dart
 class SettingsRepository implements ISettingsRepository {
-  final SettingsLocalDataSource _localDataSource;
+  final SettingsLocalDataSource localDataSource;
 
-  SettingsRepository({required SettingsLocalDataSource localDataSource})
-      : _localDataSource = localDataSource;
+  SettingsRepository({required this.localDataSource});
 
   @override
   Future<Result<bool>> isDarkMode() async {
     return safeCall(() async {
-      return await _localDataSource.isDarkMode();
+      return await localDataSource.isDarkMode();
     });
   }
 
   @override
   Future<Result<void>> setDarkMode(bool isDark) async {
     return safeCall(() async {
-      await _localDataSource.setDarkMode(isDark);
+      await localDataSource.setDarkMode(isDark);
     });
   }
 }
