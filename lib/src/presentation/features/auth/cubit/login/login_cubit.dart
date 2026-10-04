@@ -1,28 +1,21 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/enums/status.dart';
+import '../../../../../core/helpers/result.dart';
 import '../../../../../domain/usecases/auth/login_use_case.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit({
-    required this.loginUseCase,
-  }) : super(const LoginState());
-
   final LoginUseCase loginUseCase;
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
-    emit(state.copyWith(status: Status.Loading));
-    try {
-      final user = await loginUseCase(
-        email: email,
-        password: password,
-      );
-      emit(state.copyWith(status: Status.Success, user: user));
-    } catch (e) {
-      emit(state.copyWith(status: Status.Failure, errorMessage: e.toString()));
-    }
+  LoginCubit(this.loginUseCase) : super(const LoginState());
+
+  Future<void> login(String email, String password) async {
+    emit(state.copyWith(status: Status.loading));
+    final result = await loginUseCase(email, password);
+    result.fold(
+      (user) => emit(state.copyWith(status: Status.success)),
+      (e) => emit(state.copyWith(status: Status.failure, exception: e)),
+    );
   }
 }

@@ -1,6 +1,6 @@
 # Flutter Clean Architecture Template
 
-A production-ready, highly scalable starter template for Flutter applications built following the principles of **Clean Architecture**, **Feature-First Presentation**, **GoRouter Routing**, **ScreenUtil Responsiveness**, and **BLoC / Cubit State Management**.
+A production-ready, highly scalable starter template for Flutter applications built following the principles of **Clean Architecture**, **Feature-First Presentation**, **Typed Error Handling & Result Pattern**, **GoRouter Routing**, **ScreenUtil Responsiveness**, and **BLoC / Cubit State Management**.
 
 ---
 
@@ -8,12 +8,13 @@ A production-ready, highly scalable starter template for Flutter applications bu
 
 ```
 lib/
-├── main.dart                     # App entry point with EasyLocalization, ScreenUtil & GoRouter
+├── main.dart                     # Main entry point with EasyLocalization & initializeDependencies
+├── main_app.dart                 # Root App widget with MaterialApp.router, AppTheme, & Root Session Expiry Listener
 ├── gen/                          # Generated assets (flutter_gen)
 └── src/
     ├── core/
-    │   ├── components/           # Core UI components
-    │   ├── constants/            # App constants (AppPaddings, AppSpaces, AppIconSizes, ApiConstants, CacheKeys)
+    │   ├── components/           # Core UI components (CustomDialog, etc.)
+    │   ├── constants/            # App constants (AppPaddings, AppSpaces, AppIconSizes, ApiConstants, CacheKeys, AppDurations)
     │   ├── di/                   # Modularized Dependency Injection (GetIt)
     │   │   ├── cubits.dart
     │   │   ├── data_sources.dart
@@ -22,8 +23,10 @@ lib/
     │   │   ├── network.dart
     │   │   ├── repositories.dart
     │   │   └── use_cases.dart
-    │   ├── enums/                # Enums (Status, AppLanguage, AppRegion, etc.)
-    │   ├── extensions/           # Extensions (StringValidatorExtensions)
+    │   ├── enums/                # Central Enums (ApiEndpoint, Status, SplashTarget, SnackBarType, etc.)
+    │   ├── exceptions/           # Core Exceptions (BaseException, NetworkExceptions, ExceptionMapper, executeRequest)
+    │   ├── extensions/           # String & Object Extensions
+    │   ├── helpers/              # Result Pattern (Result<T, E>, Success, Failure, ResultX)
     │   ├── interceptors/         # Dio Interceptors (AuthInterceptor, LocalizationInterceptor, ErrorInterceptor)
     │   ├── managers/             # Core Managers (EnvManager, NetworkManager, CacheManager, EncryptedCacheManager)
     │   ├── router/               # AppRouter & AppRoute Enum
@@ -33,16 +36,18 @@ lib/
     │   │   ├── local/            # Local Data Sources (Hive / EncryptedStorage)
     │   │   └── remote/           # Remote Data Sources (AuthRemoteDataSource, UserRemoteDataSource)
     │   ├── models/
-    │   │   ├── dto/              # Data Transfer Objects (UserDto, AuthDto)
-    │   │   ├── request/          # API Request DTOs (LoginRequest, RegisterRequest, ForgotPasswordRequest, etc.)
+    │   │   ├── dto/              # Data Transfer Objects
+    │   │   ├── request/          # API Request DTOs (LoginRequest, RegisterRequest, etc.)
     │   │   └── response/         # API Response DTOs with toDomain() converter
-    │   └── repositories/         # Repository implementations
+    │   └── repositories/         # Repository implementations returning Result<T, FeatureException>
     ├── domain/
+    │   ├── exceptions/           # Feature-Specific Exception Hierarchies (AuthException, UserException, SettingsException)
     │   ├── models/
     │   │   └── base/             # BaseModel (id) & TimestampModel (createdAt, updatedAt)
-    │   ├── repositories/         # Abstract repository interfaces (IAuthRepository, IUserRepository)
+    │   ├── repositories/         # Abstract repository interfaces (IAuthRepository, IUserRepository, ISettingsRepository)
     │   └── usecases/             # Single-responsibility Use Cases
-    │       ├── auth/             # LoginUseCase, RegisterUseCase, ForgotPasswordUseCase, VerifyOtpUseCase, ResetPasswordUseCase
+    │       ├── auth/             # LoginUseCase, RegisterUseCase, ForgotPasswordUseCase, VerifyOtpUseCase, ResetPasswordUseCase, RefreshTokenUseCase
+    │       ├── settings/         # GetLanguageUseCase, UpdateLanguageUseCase, GetThemeUseCase, UpdateThemeUseCase, LogoutUseCase
     │       └── user/             # GetUserProfileUseCase, UpdateUserProfileUseCase
     └── presentation/
         ├── features/
@@ -52,8 +57,36 @@ lib/
         │   ├── onboarding/        # Onboarding Page + Cubit with Hive completion caching
         │   ├── settings/         # Settings view + Cubit
         │   └── splash/           # Splash screen + Cubit (checks Onboarding -> Token -> User profile)
-        └── widgets/              # Shared presentation widgets (CustomButton, CustomTextField)
+        ├── global_cubits/        # Application-wide Cubits (SettingsCubit)
+        └── widgets/              # Shared presentation widgets (CustomButton, CustomTextField, CustomRichText, ErrorSnackBar)
 ```
+
+---
+
+## 🛠️ Key Architectural Patterns
+
+### 1. Typed Error Handling & Result Pattern
+- All remote API calls are executed through `executeRequest` wrapper which maps Dio/HTTP errors to typed `BaseException` subclasses.
+- Each feature defines its own sealed exception hierarchy in `domain/exceptions/`:
+  - `AuthException` (`AuthInvalidCredentials`, `AuthUserAlreadyExists`, `AuthNoInternetException`, etc.)
+  - `UserException` (`UserNotFound`, `UserValidationError`, `UserNoInternetException`, etc.)
+  - `SettingsException` (`SettingsNoInternetException`, `SettingsServerException`, etc.)
+- Repositories convert exceptions using `.toAuthException()`, `.toUserException()`, `.toSettingsException()` and return `Result<T, FeatureException>` (`Success` or `Failure`).
+
+### 2. Centralized Endpoint Protection (`ApiEndpoint`)
+- All backend routes live exclusively in the `ApiEndpoint` enum (`lib/src/core/enums/api_endpoint.dart`).
+- Routes default to `requiresAuth: true`. Only public routes are marked `requiresAuth: false`.
+- `AuthInterceptor` checks `ApiEndpoint.isPublic(path)` to automatically skip Authorization headers and 401 refresh logic for public routes.
+
+### 3. Session Expiry & Single-Entry Logout Flow
+- Token refresh race conditions are prevented using `retryDio` (an un-intercepted `plainDio` instance).
+- Session expiry (refresh failure or retry 401) calls `onSessionExpired` -> `SettingsCubit.logout()`.
+- `SettingsCubit.logout()` emits a one-shot `loggedOut: true` signal.
+- The root `BlocListener` in `main_app.dart` captures `loggedOut` and performs stack reset navigation: `AppRouter.router.go(AppRoute.login.path)`.
+
+### 4. Cache Managers with Default Values
+- `CacheManager.getOrDefault<T>(boxName, key, defaultValue)` for Hive storage.
+- `EncryptedCacheManager.readOrDefault(key, defaultValue)` for Secure Storage.
 
 ---
 
@@ -76,9 +109,8 @@ lib/
 - **Dependency Injection**: [get_it](https://pub.dev/packages/get_it)
 - **Networking**: [dio](https://pub.dev/packages/dio)
 - **Local Storage & Security**: [hive](https://pub.dev/packages/hive), [hive_flutter](https://pub.dev/packages/hive_flutter), [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage)
-- **Environment Management**: [flutter_dotenv](https://pub.dev/packages/flutter_dotenv)
 - **Localization**: [easy_localization](https://pub.dev/packages/easy_localization)
-- **Flavors**: [flutter_flavor](https://pub.dev/packages/flutter_flavor)
+- **Code Generation**: [flutter_gen](https://pub.dev/packages/flutter_gen)
 
 ---
 

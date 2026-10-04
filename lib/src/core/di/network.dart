@@ -1,3 +1,4 @@
+import '../../presentation/global_cubits/settings/settings_cubit.dart';
 import '../interceptors/auth_interceptor.dart';
 import '../interceptors/error_interceptor.dart';
 import '../interceptors/localization_interceptor.dart';
@@ -6,16 +7,6 @@ import '../network/api_client.dart';
 import 'dependency_injection.dart';
 
 void initializeNetwork() {
-  // Interceptors
-  sl.registerLazySingleton<AuthInterceptor>(
-    () => AuthInterceptor(sl<EncryptedCacheManager>()),
-  );
-  sl.registerLazySingleton<LocalizationInterceptor>(
-    () => LocalizationInterceptor(),
-  );
-  sl.registerLazySingleton<ErrorInterceptor>(() => ErrorInterceptor());
-
-  // ApiClient
   sl.registerLazySingleton<ApiClient>(
     () => ApiClient(
       authInterceptor: sl<AuthInterceptor>(),
@@ -23,4 +14,20 @@ void initializeNetwork() {
       errorInterceptor: sl<ErrorInterceptor>(),
     ),
   );
+
+  sl.registerLazySingleton<AuthInterceptor>(
+    () => AuthInterceptor(
+      sl<EncryptedCacheManager>(),
+      retryDio: sl<ApiClient>().plainDio,
+      onSessionExpired: () {
+        if (sl.isRegistered<SettingsCubit>()) {
+          sl<SettingsCubit>().logout();
+        }
+      },
+    ),
+  );
+  sl.registerLazySingleton<LocalizationInterceptor>(
+    () => LocalizationInterceptor(),
+  );
+  sl.registerLazySingleton<ErrorInterceptor>(() => ErrorInterceptor());
 }

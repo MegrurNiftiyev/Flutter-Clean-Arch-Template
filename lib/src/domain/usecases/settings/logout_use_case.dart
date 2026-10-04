@@ -1,11 +1,12 @@
+import '../../../core/helpers/result.dart';
 import '../../repositories/settings_repository.dart';
 
 class LogoutUseCase {
   final ISettingsRepository repository;
 
-  LogoutUseCase({required this.repository});
+  const LogoutUseCase(this.repository);
 
-  Future<void> call() async {
-    await repository.logout();
+  Future<Result<void>> call() {
+    return repository.logout();
   }
 }

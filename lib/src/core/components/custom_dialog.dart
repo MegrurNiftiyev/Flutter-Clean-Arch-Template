@@ -61,7 +61,8 @@ class CustomAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveIconColor = iconColor ?? (isDanger ? AppColors.error : AppColors.primary);
+    final effectiveIconColor =
+        iconColor ?? (isDanger ? AppColors.error : AppColors.primary);
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -71,7 +72,7 @@ class CustomAlertDialog extends StatelessWidget {
       backgroundColor: Theme.of(context).dialogTheme.backgroundColor ??
           Theme.of(context).colorScheme.surface,
       child: Padding(
-        padding: AppPaddings.all24,
+        padding: AppPaddings.a24,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -125,7 +126,8 @@ class CustomAlertDialog extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: isDanger ? AppColors.error : AppColors.primary,
+                      backgroundColor:
+                          isDanger ? AppColors.error : AppColors.primary,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: AppRadii.borderR12,

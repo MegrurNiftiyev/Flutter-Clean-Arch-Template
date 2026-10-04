@@ -22,5 +22,20 @@
     "register": "Registrarse",
     "forgot_password": "¿Olvidaste tu contraseña?",
     "login_page": "Página de Inicio de Sesión"
+  },
+  "errors": {
+    "no_internet": "Sin conexión a internet",
+    "timeout": "La solicitud agotó el tiempo de espera, intente de nuevo",
+    "unauthorized": "Su sesión ha expirado",
+    "not_found": "No se encontraron los datos solicitados",
+    "server": "Ocurrió un error en el servidor",
+    "unknown": "Ocurrió un error inesperado",
+    "auth": {
+      "invalid_credentials": "Correo electrónico o contraseña incorrectos",
+      "validation": "Formato de datos de entrada no válido",
+      "user_exists": "Ya existe una cuenta con este correo electrónico",
+      "rate_limit": "Demasiadas solicitudes, por favor intente más tarde",
+      "email_not_confirmed": "Por favor confirme su dirección de correo electrónico"
+    }
   }
 }

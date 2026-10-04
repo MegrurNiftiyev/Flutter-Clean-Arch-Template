@@ -22,6 +22,15 @@ class CacheManager {
     return box.get(key, defaultValue: defaultValue);
   }
 
+  Future<T> getOrDefault<T>(
+    String boxName,
+    String key,
+    T defaultValue,
+  ) async {
+    final val = await get<T>(boxName, key, defaultValue: defaultValue);
+    return val ?? defaultValue;
+  }
+
   Future<void> delete<T>(String boxName, String key) async {
     final box = await openBox<T>(boxName);
     await box.delete(key);

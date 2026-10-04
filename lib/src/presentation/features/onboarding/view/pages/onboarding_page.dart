@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_clean_arch_template/gen/assets.gen.dart';
 import '../../../../../core/constants/durations.dart';
-import '../../../../../core/constants/icon_sizes.dart';
 import '../../../../../core/constants/paddings.dart';
 import '../../../../../core/constants/radii.dart';
 import '../../../../../core/constants/spaces.dart';
@@ -44,17 +44,17 @@ class OnboardingViewState extends State<OnboardingView> {
         OnboardingItemModel(
           title: 'onboarding.title_1'.tr(),
           description: 'onboarding.desc_1'.tr(),
-          icon: Icons.architecture_rounded,
+          image: Assets.images.onboarding1,
         ),
         OnboardingItemModel(
           title: 'onboarding.title_2'.tr(),
           description: 'onboarding.desc_2'.tr(),
-          icon: Icons.rocket_launch_rounded,
+          image: Assets.images.onboarding2,
         ),
         OnboardingItemModel(
           title: 'onboarding.title_3'.tr(),
           description: 'onboarding.desc_3'.tr(),
-          icon: Icons.check_circle_outline_rounded,
+          image: Assets.images.onboarding3,
         ),
       ];
 
@@ -69,7 +69,7 @@ class OnboardingViewState extends State<OnboardingView> {
     final currentPage = cubit.state.currentPage;
     if (currentPage < items.length - 1) {
       pageController.nextPage(
-        duration: AppDurations.normal,
+        duration: AppDurations.short,
         curve: Curves.easeInOut,
       );
     } else {
@@ -90,14 +90,15 @@ class OnboardingViewState extends State<OnboardingView> {
             onPressed: onSkip,
             child: Text(
               'onboarding.skip'.tr(),
-              style: AppTextStyles.bodyMedium.copyWith(color: AppColors.primary),
+              style:
+                  AppTextStyles.bodyMedium.copyWith(color: AppColors.primary),
             ),
           ),
         ],
       ),
       body: BlocConsumer<OnboardingCubit, OnboardingState>(
         listener: (context, state) {
-          if (state.status == Status.Success) {
+          if (state.status == Status.success) {
             context.goNamed(AppRoute.login.name);
           }
         },
@@ -105,7 +106,7 @@ class OnboardingViewState extends State<OnboardingView> {
           final isLastPage = state.currentPage == items.length - 1;
 
           return Padding(
-            padding: AppPaddings.page,
+            padding: AppPaddings.a16,
             child: Column(
               children: [
                 Expanded(
@@ -120,10 +121,10 @@ class OnboardingViewState extends State<OnboardingView> {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            item.icon,
-                            size: AppIconSizes.s100,
-                            color: AppColors.primary,
+                          item.image.image(
+                            width: 180.r,
+                            height: 180.r,
+                            fit: BoxFit.contain,
                           ),
                           AppSpaces.v32,
                           Text(
@@ -162,8 +163,10 @@ class OnboardingViewState extends State<OnboardingView> {
                 ),
                 AppSpaces.v32,
                 CustomButton(
-                  text: isLastPage ? 'onboarding.get_started'.tr() : 'onboarding.next'.tr(),
-                  isLoading: state.status == Status.Loading,
+                  text: isLastPage
+                      ? 'onboarding.get_started'.tr()
+                      : 'onboarding.next'.tr(),
+                  isLoading: state.status == Status.loading,
                   onPressed: onNextPage,
                 ),
                 AppSpaces.v16,

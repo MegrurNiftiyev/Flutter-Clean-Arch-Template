@@ -2,15 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../core/components/custom_snackbar.dart';
+
+import '../../../../../core/components/custom_snack_bar.dart';
 import '../../../../../core/constants/paddings.dart';
 import '../../../../../core/constants/spaces.dart';
 import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../core/enums/status.dart';
+import '../../../../../core/exceptions/network_exceptions.dart';
 import '../../../../../core/extensions/string_extensions.dart';
 import '../../../../../core/router/app_routes.dart';
-import '../../../../../core/theme/text_styles.dart';
 import '../../../../widgets/custom_button.dart';
+import '../../../../widgets/custom_rich_text.dart';
 import '../../../../widgets/custom_text_field.dart';
 import '../../cubit/register/register_cubit.dart';
 import '../../cubit/register/register_state.dart';
@@ -51,8 +53,8 @@ class RegisterViewState extends State<RegisterView> {
   void onRegister() {
     if (formKey.currentState?.validate() ?? false) {
       context.read<RegisterCubit>().register(
-            email: emailController.text.trim(),
-            password: passwordController.text,
+            emailController.text.trim(),
+            passwordController.text,
             name: nameController.text.trim(),
           );
     }
@@ -66,20 +68,26 @@ class RegisterViewState extends State<RegisterView> {
       ),
       body: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          if (state.status == Status.Failure) {
-            AppSnackBar.showDanger(
-              context: context,
-              message: state.errorMessage ?? 'general.error'.tr(),
-            );
-          } else if (state.status == Status.Success) {
+          if (state.status == Status.failure) {
+            final exception = state.exception;
+            if (exception == null) return;
+
+            if (exception is NoInternetException ||
+                exception is RequestTimeoutException) {
+              CustomSnackBar.showError(context,
+                  message: exception.message, onRetry: onRegister);
+            } else if (exception is! UnauthorizedException) {
+              CustomSnackBar.showError(context, message: exception.message);
+            }
+          } else if (state.status == Status.success) {
             context.goNamed(AppRoute.home.name);
           }
         },
         builder: (context, state) {
-          final isLoading = state.status == Status.Loading;
+          final isLoading = state.status == Status.loading;
 
           return Padding(
-            padding: AppPaddings.page,
+            padding: AppPaddings.a16,
             child: Form(
               key: formKey,
               child: Column(
@@ -89,7 +97,8 @@ class RegisterViewState extends State<RegisterView> {
                     controller: nameController,
                     labelText: 'auth.name'.tr(),
                     textInputAction: TextInputAction.next,
-                    validator: (value) => value.validateRequired('auth.name'.tr()),
+                    validator: (value) =>
+                        value.validateRequired('auth.name'.tr()),
                   ),
                   AppSpaces.v16,
                   CustomTextField(
@@ -119,14 +128,14 @@ class RegisterViewState extends State<RegisterView> {
                     onPressed: onRegister,
                   ),
                   AppSpaces.v16,
-                  TextButton(
-                    onPressed: () {
+                  CustomRichText(
+                    texts: [
+                      'auth.already_have_account'.tr(),
+                      'auth.login'.tr(),
+                    ],
+                    onTap: () {
                       context.pop();
                     },
-                    child: Text(
-                      'auth.already_have_account'.tr(),
-                      style: AppTextStyles.bodyMedium,
-                    ),
                   ),
                 ],
               ),

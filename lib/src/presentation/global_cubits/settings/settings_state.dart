@@ -1,43 +1,37 @@
 import 'package:equatable/equatable.dart';
-import '../../../../core/enums/status.dart';
+
+import '../../../core/enums/status.dart';
+import '../../../core/exceptions/base_exception.dart';
 
 class SettingsState extends Equatable {
   final Status status;
   final bool isDarkMode;
   final String languageCode;
-  final String? errorMessage;
-  final bool isLoggedOut;
+  final BaseException? exception;
 
   const SettingsState({
-    this.status = Status.Initial,
+    this.status = Status.initial,
     this.isDarkMode = false,
     this.languageCode = 'en',
-    this.errorMessage,
-    this.isLoggedOut = false,
+    this.exception,
   });
 
   SettingsState copyWith({
     Status? status,
     bool? isDarkMode,
     String? languageCode,
-    String? errorMessage,
-    bool? isLoggedOut,
+    BaseException? exception,
   }) {
     return SettingsState(
       status: status ?? this.status,
       isDarkMode: isDarkMode ?? this.isDarkMode,
       languageCode: languageCode ?? this.languageCode,
-      errorMessage: errorMessage,
-      isLoggedOut: isLoggedOut ?? this.isLoggedOut,
+      exception: exception,
     );
   }
 
+  bool get loggedOut => status == Status.success;
+
   @override
-  List<Object?> get props => [
-        status,
-        isDarkMode,
-        languageCode,
-        errorMessage,
-        isLoggedOut,
-      ];
+  List<Object?> get props => [status, isDarkMode, languageCode, exception];
 }

@@ -22,5 +22,20 @@
     "register": "Kayıt Ol",
     "forgot_password": "Şifremi Unuttum",
     "login_page": "Giriş Sayfası"
+  },
+  "errors": {
+    "no_internet": "İnternet bağlantısı yok",
+    "timeout": "İstek zaman aşımına uğradı, lütfen tekrar deneyin",
+    "unauthorized": "Oturumunuzun süresi doldu",
+    "not_found": "İstenen veri bulunamadı",
+    "server": "Sunucu hatası oluştu",
+    "unknown": "Beklenmeyen bir hata oluştu",
+    "auth": {
+      "invalid_credentials": "E-posta veya şifre hatalı",
+      "validation": "Girilen veriler geçersiz",
+      "user_exists": "Bu e-posta adresiyle kayıtlı bir hesap zaten var",
+      "rate_limit": "Çok fazla istek gönderildi, lütfen daha sonra tekrar deneyin",
+      "email_not_confirmed": "Lütfen e-posta adresinizi doğrulayın"
+    }
   }
 }

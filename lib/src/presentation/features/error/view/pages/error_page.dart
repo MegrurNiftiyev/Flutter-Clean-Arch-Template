@@ -23,7 +23,7 @@ class ErrorPage extends StatelessWidget {
         title: Text('general.error'.tr()),
       ),
       body: Padding(
-        padding: AppPaddings.page,
+        padding: AppPaddings.a16,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

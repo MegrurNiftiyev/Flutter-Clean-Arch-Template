@@ -2,11 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../core/components/custom_snackbar.dart';
+
+import '../../../../../core/components/custom_snack_bar.dart';
 import '../../../../../core/constants/durations.dart';
 import '../../../../../core/constants/paddings.dart';
 import '../../../../../core/constants/spaces.dart';
 import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../core/enums/event_status.dart';
 import '../../../../../core/enums/status.dart';
 import '../../../../../core/extensions/string_extensions.dart';
 import '../../../../../core/router/app_routes.dart';
@@ -57,8 +59,8 @@ class VerifyOtpViewState extends State<VerifyOtpView> {
   void onVerify() {
     if (formKey.currentState?.validate() ?? false) {
       context.read<VerifyOtpCubit>().verifyOtp(
-            email: widget.email,
-            otpCode: otpController.text.trim(),
+            widget.email,
+            otpController.text.trim(),
           );
     }
   }
@@ -71,18 +73,21 @@ class VerifyOtpViewState extends State<VerifyOtpView> {
       ),
       body: BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
         listener: (context, state) async {
-          if (state.status == Status.Failure) {
-            AppSnackBar.showDanger(
-              context: context,
-              message: state.errorMessage ?? 'general.error'.tr(),
-            );
-          } else if (state.status == Status.Success && state.resetToken != null) {
-            AppSnackBar.showSuccess(
-              context: context,
+          if (state.status == Status.failure) {
+            final exception = state.exception;
+            if (exception != null) {
+              CustomSnackBar.showError(context,
+                  message: exception.message, onRetry: onVerify);
+            }
+          } else if (state.status == Status.success &&
+              state.resetToken != null) {
+            CustomSnackBar.show(
+              context,
               message: 'auth.otp_verified_success'.tr(),
+              type: EventStatus.success,
             );
             // Wait 2 seconds before automatically proceeding to reset password page
-            await Future.delayed(AppDurations.snackBar);
+            await Future.delayed(AppDurations.s2);
             if (context.mounted) {
               context.pushReplacementNamed(
                 AppRoute.resetPassword.name,
@@ -95,10 +100,10 @@ class VerifyOtpViewState extends State<VerifyOtpView> {
           }
         },
         builder: (context, state) {
-          final isLoading = state.status == Status.Loading;
+          final isLoading = state.status == Status.loading;
 
           return Padding(
-            padding: AppPaddings.page,
+            padding: AppPaddings.a16,
             child: Form(
               key: formKey,
               child: Column(

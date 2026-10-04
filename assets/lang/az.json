@@ -22,5 +22,20 @@
     "register": "Qeydiyyatdan keç",
     "forgot_password": "Şifrəni unutmusunuz",
     "login_page": "Daxilolma Səhifəsi"
+  },
+  "errors": {
+    "no_internet": "İnternet bağlantısı yoxdur",
+    "timeout": "Sorğunun vaxtı bitdi, yenidən cəhd edin",
+    "unauthorized": "Sessiyanın vaxtı bitib",
+    "not_found": "Məlumat tapılmadı",
+    "server": "Server xətası baş verdi",
+    "unknown": "Gözlənilməz xəta baş verdi",
+    "auth": {
+      "invalid_credentials": "Email və ya şifrə yanlışdır",
+      "validation": "Daxil edilən məlumatlar düzgün deyil",
+      "user_exists": "Bu email ilə artıq qeydiyyat var",
+      "rate_limit": "Çox sayda sorğu göndərildi, daha sonra cəhd edin",
+      "email_not_confirmed": "Zəhmət olmasa email ünvanınızı təsdiqləyin"
+    }
   }
 }

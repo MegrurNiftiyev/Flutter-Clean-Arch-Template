@@ -1,11 +1,10 @@
+import '../../core/helpers/result.dart';
 import '../models/user_model.dart';
 
 abstract class IUserRepository {
-  Future<UserModel> getUserProfile({
-    required String userId,
-  });
+  Future<Result<UserModel>> getUserProfile();
 
-  Future<UserModel> updateUserProfile({
+  Future<Result<UserModel>> updateUserProfile({
     required String userId,
     String? name,
   });

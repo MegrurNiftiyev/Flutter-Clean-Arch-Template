@@ -22,5 +22,20 @@
     "register": "S'inscrire",
     "forgot_password": "Mot de passe oublié",
     "login_page": "Page de Connexion"
+  },
+  "errors": {
+    "no_internet": "Pas de connexion internet",
+    "timeout": "La demande a expiré, veuillez réessayer",
+    "unauthorized": "Votre session a expiré",
+    "not_found": "Les données demandées n'ont pas été trouvées",
+    "server": "Une erreur serveur est survenue",
+    "unknown": "Une erreur inattendue est survenue",
+    "auth": {
+      "invalid_credentials": "E-mail ou mot de passe invalide",
+      "validation": "Format des données saisies invalide",
+      "user_exists": "Un compte avec cet e-mail existe déjà",
+      "rate_limit": "Trop de requêtes, veuillez réessayer plus tard",
+      "email_not_confirmed": "Veuillez confirmer votre adresse e-mail"
+    }
   }
 }

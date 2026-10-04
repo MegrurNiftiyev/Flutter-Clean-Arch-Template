@@ -13,25 +13,36 @@ class SettingsLocalDataSource {
         _encryptedCacheManager = encryptedCacheManager;
 
   Future<bool> isDarkMode() async {
-    final val = await _cacheManager.get<bool>(CacheKeys.boxName, CacheKeys.themeKey);
-    return val ?? false;
+    return _cacheManager.getOrDefault<bool>(
+      CacheKeys.boxName,
+      CacheKeys.themeKey,
+      false,
+    );
   }
 
   Future<void> setDarkMode(bool isDark) async {
-    await _cacheManager.put<bool>(CacheKeys.boxName, CacheKeys.themeKey, isDark);
+    await _cacheManager.put<bool>(
+      CacheKeys.boxName,
+      CacheKeys.themeKey,
+      isDark,
+    );
   }
 
   Future<String> getLanguage() async {
-    final val = await _cacheManager.get<String>(CacheKeys.boxName, CacheKeys.languageKey);
-    return val ?? 'en';
+    return _cacheManager.getOrDefault<String>(
+      CacheKeys.boxName,
+      CacheKeys.languageKey,
+      'en',
+    );
   }
 
   Future<void> setLanguage(String languageCode) async {
-    await _cacheManager.put<String>(CacheKeys.boxName, CacheKeys.languageKey, languageCode);
+    await _cacheManager.put<String>(
+        CacheKeys.boxName, CacheKeys.languageKey, languageCode);
   }
 
   Future<void> clearAuthData() async {
-    await _encryptedCacheManager.delete(CacheKeys.accessTokenKey);
-    await _encryptedCacheManager.delete(CacheKeys.refreshTokenKey);
+    await _encryptedCacheManager.deleteAll();
+    await _cacheManager.clear(CacheKeys.boxName);
   }
 }

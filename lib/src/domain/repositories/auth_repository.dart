@@ -1,28 +1,31 @@
+import '../../core/helpers/result.dart';
 import '../models/user_model.dart';
 
 abstract class IAuthRepository {
-  Future<UserModel> login({
+  Future<Result<UserModel>> login({
     required String email,
     required String password,
   });
 
-  Future<UserModel> register({
+  Future<Result<UserModel>> register({
     required String email,
     required String password,
     String? name,
   });
 
-  Future<void> forgotPassword({
+  Future<Result<void>> forgotPassword({
     required String email,
   });
 
-  Future<String> verifyOtp({
+  Future<Result<String>> verifyOtp({
     required String email,
     required String otpCode,
   });
 
-  Future<void> resetPassword({
+  Future<Result<void>> resetPassword({
     required String resetToken,
     required String newPassword,
   });
+
+  Future<Result<void>> refreshToken();
 }

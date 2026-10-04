@@ -1,13 +1,13 @@
-import 'package:flutter/widgets.dart';
+import '../../../gen/assets.gen.dart';
 
 class OnboardingItemModel {
   final String title;
   final String description;
-  final IconData icon;
+  final AssetGenImage image;
 
   const OnboardingItemModel({
     required this.title,
     required this.description,
-    required this.icon,
+    required this.image,
   });
 }

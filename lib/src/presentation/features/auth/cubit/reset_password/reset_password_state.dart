@@ -1,30 +1,27 @@
 import 'package:equatable/equatable.dart';
+
 import '../../../../../core/enums/status.dart';
-import '../../../../../domain/models/user_model.dart';
+import '../../../../../core/exceptions/base_exception.dart';
 
 class ResetPasswordState extends Equatable {
-  const ResetPasswordState({
-    this.status = Status.Initial,
-    this.user,
-    this.errorMessage,
-  });
-
   final Status status;
-  final UserModel? user;
-  final String? errorMessage;
+  final BaseException? exception;
+
+  const ResetPasswordState({
+    this.status = Status.initial,
+    this.exception,
+  });
 
   ResetPasswordState copyWith({
     Status? status,
-    UserModel? user,
-    String? errorMessage,
+    BaseException? exception,
   }) {
     return ResetPasswordState(
       status: status ?? this.status,
-      user: user ?? this.user,
-      errorMessage: errorMessage ?? this.errorMessage,
+      exception: exception,
     );
   }
 
   @override
-  List<Object?> get props => [status, user, errorMessage];
+  List<Object?> get props => [status, exception];
 }

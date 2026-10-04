@@ -60,7 +60,7 @@ class CustomButton extends StatelessWidget {
               ? (color ?? AppColors.primary)
               : (disabledColor ?? AppColors.disabled),
           foregroundColor: effectiveTextColor,
-          padding: padding ?? AppPaddings.buttonContent,
+          padding: padding ?? AppPaddings.h16,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
           ),

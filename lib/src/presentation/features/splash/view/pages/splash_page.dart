@@ -1,13 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_arch_template/gen/assets.gen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../core/constants/icon_sizes.dart';
-import '../../../../../core/constants/spaces.dart';
+
 import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../core/enums/splash_target.dart';
 import '../../../../../core/router/app_routes.dart';
-import '../../../../../core/theme/colors.dart';
-import '../../../../../core/theme/text_styles.dart';
 import '../../cubit/splash_cubit.dart';
 import '../../cubit/splash_state.dart';
 
@@ -41,27 +40,15 @@ class SplashView extends StatelessWidget {
             context.goNamed(AppRoute.login.name);
             break;
           case SplashTarget.initial:
+          case null:
             break;
         }
       },
       child: Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.flutter_dash_rounded,
-                size: AppIconSizes.s80,
-                color: AppColors.primary,
-              ),
-              AppSpaces.v16,
-              Text(
-                'splash.title'.tr(),
-                style: AppTextStyles.titleLarge,
-              ),
-              AppSpaces.v24,
-              const CircularProgressIndicator(),
-            ],
+          child: Assets.images.logo.image(
+            width: 120.r,
+            height: 120.r,
           ),
         ),
       ),

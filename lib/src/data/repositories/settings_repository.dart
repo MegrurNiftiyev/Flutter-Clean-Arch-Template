@@ -1,3 +1,4 @@
+import '../../core/helpers/result.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../datasources/local/settings_local_data_source.dart';
 
@@ -8,27 +9,37 @@ class SettingsRepository implements ISettingsRepository {
       : _localDataSource = localDataSource;
 
   @override
-  Future<bool> isDarkMode() async {
-    return await _localDataSource.isDarkMode();
+  Future<Result<bool>> isDarkMode() async {
+    return safeCall(() async {
+      return await _localDataSource.isDarkMode();
+    });
   }
 
   @override
-  Future<void> setDarkMode(bool isDark) async {
-    await _localDataSource.setDarkMode(isDark);
+  Future<Result<void>> setDarkMode(bool isDark) async {
+    return safeCall(() async {
+      await _localDataSource.setDarkMode(isDark);
+    });
   }
 
   @override
-  Future<String> getLanguage() async {
-    return await _localDataSource.getLanguage();
+  Future<Result<String>> getLanguage() async {
+    return safeCall(() async {
+      return await _localDataSource.getLanguage();
+    });
   }
 
   @override
-  Future<void> setLanguage(String languageCode) async {
-    await _localDataSource.setLanguage(languageCode);
+  Future<Result<void>> setLanguage(String languageCode) async {
+    return safeCall(() async {
+      await _localDataSource.setLanguage(languageCode);
+    });
   }
 
   @override
-  Future<void> logout() async {
-    await _localDataSource.clearAuthData();
+  Future<Result<void>> logout() async {
+    return safeCall(() async {
+      await _localDataSource.clearAuthData();
+    });
   }
 }

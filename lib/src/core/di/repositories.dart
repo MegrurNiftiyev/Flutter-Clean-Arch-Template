@@ -23,4 +23,3 @@ void initializeRepositories() {
     () => SettingsRepository(localDataSource: sl()),
   );
 }
-

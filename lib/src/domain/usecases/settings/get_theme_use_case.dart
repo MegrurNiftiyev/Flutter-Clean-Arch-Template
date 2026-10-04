@@ -1,11 +1,12 @@
+import '../../../core/helpers/result.dart';
 import '../../repositories/settings_repository.dart';
 
 class GetThemeUseCase {
   final ISettingsRepository repository;
 
-  GetThemeUseCase({required this.repository});
+  const GetThemeUseCase(this.repository);
 
-  Future<bool> call() async {
-    return await repository.isDarkMode();
+  Future<Result<bool>> call() {
+    return repository.isDarkMode();
   }
 }

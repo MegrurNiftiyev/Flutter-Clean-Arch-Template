@@ -1,5 +1,9 @@
+import '../../domain/repositories/auth_repository.dart';
+import '../../domain/repositories/settings_repository.dart';
+import '../../domain/repositories/user_repository.dart';
 import '../../domain/usecases/auth/forgot_password_use_case.dart';
 import '../../domain/usecases/auth/login_use_case.dart';
+import '../../domain/usecases/auth/refresh_token_use_case.dart';
 import '../../domain/usecases/auth/register_use_case.dart';
 import '../../domain/usecases/auth/reset_password_use_case.dart';
 import '../../domain/usecases/auth/verify_otp_use_case.dart';
@@ -14,51 +18,54 @@ import 'dependency_injection.dart';
 
 void initializeUseCases() {
   sl.registerLazySingleton(
-    () => LoginUseCase(repository: sl()),
+    () => LoginUseCase(sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => RegisterUseCase(repository: sl()),
+    () => RegisterUseCase(sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => ForgotPasswordUseCase(repository: sl()),
+    () => ForgotPasswordUseCase(sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => VerifyOtpUseCase(repository: sl()),
+    () => VerifyOtpUseCase(sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => ResetPasswordUseCase(repository: sl()),
+    () => ResetPasswordUseCase(sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => GetUserProfileUseCase(repository: sl()),
+    () => RefreshTokenUseCase(sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => UpdateUserProfileUseCase(repository: sl()),
+    () => GetUserProfileUseCase(sl<IUserRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => GetThemeUseCase(repository: sl()),
+    () => UpdateUserProfileUseCase(sl<IUserRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => UpdateThemeUseCase(repository: sl()),
+    () => GetThemeUseCase(sl<ISettingsRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => GetLanguageUseCase(repository: sl()),
+    () => UpdateThemeUseCase(sl<ISettingsRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => UpdateLanguageUseCase(repository: sl()),
+    () => GetLanguageUseCase(sl<ISettingsRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => LogoutUseCase(repository: sl()),
+    () => UpdateLanguageUseCase(sl<ISettingsRepository>()),
+  );
+
+  sl.registerLazySingleton(
+    () => LogoutUseCase(sl<ISettingsRepository>()),
   );
 }
-

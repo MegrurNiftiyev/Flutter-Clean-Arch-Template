@@ -2,7 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../core/components/custom_snackbar.dart';
+
+import '../../../../../core/components/custom_snack_bar.dart';
 import '../../../../../core/constants/paddings.dart';
 import '../../../../../core/constants/spaces.dart';
 import '../../../../../core/di/dependency_injection.dart';
@@ -59,12 +60,13 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
       ),
       body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
-          if (state.status == Status.Failure) {
-            AppSnackBar.showDanger(
-              context: context,
-              message: state.errorMessage ?? 'general.error'.tr(),
-            );
-          } else if (state.status == Status.Success) {
+          if (state.status == Status.failure) {
+            final exception = state.exception;
+            if (exception != null) {
+              CustomSnackBar.showError(context,
+                  message: exception.message, onRetry: onSendCode);
+            }
+          } else if (state.status == Status.success) {
             context.pushNamed(
               AppRoute.verifyOtp.name,
               extra: emailController.text.trim(),
@@ -72,10 +74,10 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
           }
         },
         builder: (context, state) {
-          final isLoading = state.status == Status.Loading;
+          final isLoading = state.status == Status.loading;
 
           return Padding(
-            padding: AppPaddings.page,
+            padding: AppPaddings.a16,
             child: Form(
               key: formKey,
               child: Column(

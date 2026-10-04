@@ -48,7 +48,7 @@ class CustomBottomSheet extends StatelessWidget {
           top: Radius.circular(AppRadii.r24),
         ),
       ),
-      padding: AppPaddings.page,
+      padding: AppPaddings.a16,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -58,5 +58,20 @@
     "otp_verified_success": "OTP verified successfully. Redirecting...",
     "new_password": "New Password",
     "reset_password": "Reset Password"
+  },
+  "errors": {
+    "no_internet": "No internet connection",
+    "timeout": "The request timed out, please try again",
+    "unauthorized": "Your session has expired",
+    "not_found": "Requested data was not found",
+    "server": "A server error occurred",
+    "unknown": "An unexpected error occurred",
+    "auth": {
+      "invalid_credentials": "Invalid email or password",
+      "validation": "Invalid input data format",
+      "user_exists": "An account with this email already exists",
+      "rate_limit": "Too many requests, please try again later",
+      "email_not_confirmed": "Please confirm your email address"
+    }
   }
 }

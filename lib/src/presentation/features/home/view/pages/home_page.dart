@@ -1,12 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../../../../core/constants/icon_sizes.dart';
-import '../../../../../core/constants/paddings.dart';
-import '../../../../../core/constants/spaces.dart';
-import '../../../../../core/router/app_routes.dart';
-import '../../../../../core/theme/colors.dart';
-import '../../../../../core/theme/text_styles.dart';
+
+import '../../../../../core/components/custom_bottom_nav_bar.dart';
+import '../../../demo_screen1/view/pages/demo_screen1_page.dart';
+import '../../../demo_screen2/view/pages/demo_screen2_page.dart';
+import '../../../settings/view/pages/settings_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,49 +14,36 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  int _currentIndex = 0;
+
+  final List<Widget> _views = const [
+    DemoScreen1View(),
+    DemoScreen2View(),
+    SettingsView(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'home.title'.tr(),
-          style: AppTextStyles.titleLarge,
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.settings_outlined,
-              size: AppIconSizes.s24,
-              color: AppColors.primary,
-            ),
-            onPressed: () {
-              context.pushNamed(AppRoute.settings.name);
-            },
-          ),
-        ],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _views,
       ),
-      body: Padding(
-        padding: AppPaddings.page,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.home_outlined,
-                size: AppIconSizes.s80,
-                color: AppColors.primary,
-              ),
-              AppSpaces.v16,
-              Text(
-                'home.welcome'.tr(),
-                style: AppTextStyles.bodyLarge,
-              ),
-            ],
-          ),
-        ),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }

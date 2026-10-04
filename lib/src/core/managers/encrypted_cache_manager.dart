@@ -17,6 +17,11 @@ class EncryptedCacheManager {
     return await _storage.read(key: key);
   }
 
+  Future<String> readOrDefault(String key, String defaultValue) async {
+    final val = await read(key);
+    return val == null || val.isEmpty ? defaultValue : val;
+  }
+
   Future<void> delete(String key) async {
     await _storage.delete(key: key);
   }

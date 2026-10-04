@@ -1,48 +1,64 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_clean_arch_template/src/presentation/global_cubits/settings/settings_cubit.dart';
+import 'package:flutter_clean_arch_template/src/presentation/global_cubits/settings/settings_state.dart';
+
 import '../../../../../core/components/custom_dialog.dart';
-import '../../../../../core/components/custom_snackbar.dart';
+import '../../../../../core/components/custom_snack_bar.dart';
 import '../../../../../core/constants/icon_sizes.dart';
 import '../../../../../core/constants/paddings.dart';
 import '../../../../../core/constants/spaces.dart';
-import '../../../../../core/di/dependency_injection.dart';
-import '../../../../../core/enums/app_language.dart';
 import '../../../../../core/enums/status.dart';
-import '../../../../../core/router/app_routes.dart';
 import '../../../../../core/theme/colors.dart';
 import '../../../../../core/theme/text_styles.dart';
 import '../../../../widgets/custom_button.dart';
-import '../../cubit/settings_cubit.dart';
-import '../../cubit/settings_state.dart';
+import '../widgets/language_bottom_sheet.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<SettingsCubit>()..loadSettings(),
-      child: const SettingsView(),
-    );
+    return const SettingsView();
   }
 }
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 
+  void onLanguageTap(BuildContext context, String currentLangCode) {
+    LanguageBottomSheet.show(
+      context: context,
+      currentLanguageCode: currentLangCode,
+      onLanguageSelected: (newLangCode) {
+        context.read<SettingsCubit>().changeLanguage(newLangCode);
+        context.setLocale(Locale(newLangCode));
+      },
+    );
+  }
+
+  void onLogoutTap(BuildContext context) {
+    CustomAlertDialog.show(
+      context: context,
+      title: 'settings.logout'.tr(),
+      subtitle: 'settings.logout_confirm'.tr(),
+      icon: Icons.logout_rounded,
+      isDanger: true,
+      confirmText: 'general.yes'.tr(),
+      cancelText: 'general.no'.tr(),
+      onConfirm: () {
+        context.read<SettingsCubit>().logout();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (context, state) {
-        if (state.isLoggedOut) {
-          context.goNamed(AppRoute.login.name);
-        } else if (state.status == Status.Failure && state.errorMessage != null) {
-          AppSnackBar.showDanger(
-            context: context,
-            message: state.errorMessage!,
-          );
+        if (state.status == Status.failure && state.exception != null) {
+          CustomSnackBar.showError(context, message: state.exception!.message);
         }
       },
       builder: (context, state) {
@@ -54,7 +70,7 @@ class SettingsView extends StatelessWidget {
             ),
           ),
           body: Padding(
-            padding: AppPaddings.all16,
+            padding: AppPaddings.a16,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -70,7 +86,8 @@ class SettingsView extends StatelessWidget {
                   ),
                   trailing: Switch(
                     value: state.isDarkMode,
-                    onChanged: (val) => context.read<SettingsCubit>().toggleTheme(val),
+                    onChanged: (val) =>
+                        context.read<SettingsCubit>().toggleTheme(val),
                     activeThumbColor: AppColors.primary,
                   ),
                 ),
@@ -85,39 +102,23 @@ class SettingsView extends StatelessWidget {
                     'settings.language'.tr(),
                     style: AppTextStyles.bodyMedium,
                   ),
-                  trailing: DropdownButton<String>(
-                    value: state.languageCode,
-                    items: AppLanguage.values.map((lang) {
-                      return DropdownMenuItem<String>(
-                        value: lang.code,
-                        child: Text('settings.lang_${lang.code}'.tr()),
-                      );
-                    }).toList(),
-                    onChanged: (val) {
-                      if (val != null) {
-                        context.read<SettingsCubit>().changeLanguage(val);
-                        context.setLocale(Locale(val));
-                      }
-                    },
+                  subtitle: Text(
+                    'settings.lang_${state.languageCode}'.tr(),
+                    style: AppTextStyles.bodySmall,
                   ),
+                  trailing: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: AppIconSizes.s24,
+                    color: AppColors.textSecondary,
+                  ),
+                  onTap: () => onLanguageTap(context, state.languageCode),
                 ),
                 const Spacer(),
                 CustomButton(
                   text: 'settings.logout'.tr(),
                   color: AppColors.error,
-                  isLoading: state.status == Status.Loading,
-                  onPressed: () {
-                    CustomAlertDialog.show(
-                      context: context,
-                      title: 'settings.logout'.tr(),
-                      subtitle: 'settings.logout_confirm'.tr(),
-                      icon: Icons.logout_rounded,
-                      isDanger: true,
-                      onConfirm: () {
-                        context.read<SettingsCubit>().logout();
-                      },
-                    );
-                  },
+                  isLoading: state.status == Status.loading,
+                  onPressed: () => onLogoutTap(context),
                 ),
                 AppSpaces.v24,
               ],

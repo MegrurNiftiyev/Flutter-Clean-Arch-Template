@@ -22,5 +22,20 @@
     "register": "Registrieren",
     "forgot_password": "Passwort vergessen",
     "login_page": "Anmeldeseite"
+  },
+  "errors": {
+    "no_internet": "Keine Internetverbindung",
+    "timeout": "Zeitüberschreitung der Anfrage, bitte versuchen Sie es erneut",
+    "unauthorized": "Ihre Sitzung ist abgelaufen",
+    "not_found": "Angeforderte Daten wurden nicht gefunden",
+    "server": "Ein Serverfehler ist aufgetreten",
+    "unknown": "Unerwarteter Fehler aufgetreten",
+    "auth": {
+      "invalid_credentials": "E-Mail oder Passwort ungültig",
+      "validation": "Ungültiges Eingabedatenformat",
+      "user_exists": "Ein Konto mit dieser E-Mail existiert bereits",
+      "rate_limit": "Zu viele Anfragen, bitte später erneut versuchen",
+      "email_not_confirmed": "Bitte bestätigen Sie Ihre E-Mail-Adresse"
+    }
   }
 }

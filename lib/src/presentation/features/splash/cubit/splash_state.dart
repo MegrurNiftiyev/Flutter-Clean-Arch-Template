@@ -1,27 +1,32 @@
 import 'package:equatable/equatable.dart';
-import '../../../../core/enums/status.dart';
 
-enum SplashTarget { initial, onboarding, authenticated, unauthenticated }
+import '../../../../core/enums/splash_target.dart';
+import '../../../../core/enums/status.dart';
+import '../../../../core/exceptions/base_exception.dart';
 
 class SplashState extends Equatable {
-  const SplashState({
-    this.status = Status.Initial,
-    this.target = SplashTarget.initial,
-  });
-
   final Status status;
-  final SplashTarget target;
+  final SplashTarget? target;
+  final BaseException? exception;
+
+  const SplashState({
+    this.status = Status.initial,
+    this.target,
+    this.exception,
+  });
 
   SplashState copyWith({
     Status? status,
     SplashTarget? target,
+    BaseException? exception,
   }) {
     return SplashState(
       status: status ?? this.status,
       target: target ?? this.target,
+      exception: exception,
     );
   }
 
   @override
-  List<Object?> get props => [status, target];
+  List<Object?> get props => [status, target, exception];
 }

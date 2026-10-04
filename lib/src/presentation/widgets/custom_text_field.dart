@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.labelText,
     this.hintText,
+    this.errorText,
     this.obscureText = false,
     this.keyboardType,
     this.textInputAction,
@@ -31,6 +32,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? labelText;
   final String? hintText;
+  final String? errorText;
   final bool obscureText;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
@@ -67,11 +69,12 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,
+        errorText: errorText,
         labelStyle: labelStyle ?? AppTextStyles.inputLabel,
         hintStyle: hintStyle ?? AppTextStyles.inputHint,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        contentPadding: contentPadding ?? AppPaddings.inputContent,
+        contentPadding: contentPadding ?? AppPaddings.v14h16,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius),
         ),

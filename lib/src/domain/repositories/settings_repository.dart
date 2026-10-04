@@ -1,7 +1,9 @@
+import '../../core/helpers/result.dart';
+
 abstract class ISettingsRepository {
-  Future<bool> isDarkMode();
-  Future<void> setDarkMode(bool isDark);
-  Future<String> getLanguage();
-  Future<void> setLanguage(String languageCode);
-  Future<void> logout();
+  Future<Result<bool>> isDarkMode();
+  Future<Result<void>> setDarkMode(bool isDark);
+  Future<Result<String>> getLanguage();
+  Future<Result<void>> setLanguage(String languageCode);
+  Future<Result<void>> logout();
 }

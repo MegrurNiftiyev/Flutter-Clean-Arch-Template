@@ -8,6 +8,7 @@ import '../managers/env_manager.dart';
 
 class ApiClient {
   late final Dio dio;
+  late final Dio plainDio;
 
   ApiClient({
     String? baseUrl,
@@ -15,11 +16,11 @@ class ApiClient {
     LocalizationInterceptor? localizationInterceptor,
     ErrorInterceptor? errorInterceptor,
   }) {
-    dio = Dio(
+    plainDio = Dio(
       BaseOptions(
         baseUrl: baseUrl ?? EnvManager.baseUrl,
-        connectTimeout: AppDurations.apiTimeout,
-        receiveTimeout: AppDurations.apiTimeout,
+        connectTimeout: AppDurations.s15,
+        receiveTimeout: AppDurations.s15,
         headers: {
           ApiConstants.contentTypeHeader: ApiConstants.applicationJson,
           ApiConstants.acceptHeader: ApiConstants.applicationJson,
@@ -27,20 +28,29 @@ class ApiClient {
       ),
     );
 
+    dio = Dio(plainDio.options.copyWith());
+
     if (authInterceptor != null) {
       dio.interceptors.add(authInterceptor);
     }
     if (localizationInterceptor != null) {
       dio.interceptors.add(localizationInterceptor);
+      plainDio.interceptors.add(localizationInterceptor);
     } else {
-      dio.interceptors.add(LocalizationInterceptor());
+      final loc = LocalizationInterceptor();
+      dio.interceptors.add(loc);
+      plainDio.interceptors.add(loc);
     }
     if (errorInterceptor != null) {
       dio.interceptors.add(errorInterceptor);
+      plainDio.interceptors.add(errorInterceptor);
     } else {
-      dio.interceptors.add(ErrorInterceptor());
+      final err = ErrorInterceptor();
+      dio.interceptors.add(err);
+      plainDio.interceptors.add(err);
     }
 
     dio.interceptors.add(LogInterceptor(responseBody: true));
+    plainDio.interceptors.add(LogInterceptor(responseBody: true));
   }
 }

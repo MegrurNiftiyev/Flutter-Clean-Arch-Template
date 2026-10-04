@@ -1,8 +1,6 @@
-// ignore_for_file: constant_identifier_names
-
 enum Status {
-  Initial,
-  Loading,
-  Success,
-  Failure,
+  initial,
+  loading,
+  success,
+  failure,
 }

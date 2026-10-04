@@ -4,6 +4,8 @@ import '../../presentation/features/auth/view/pages/login_page.dart';
 import '../../presentation/features/auth/view/pages/register_page.dart';
 import '../../presentation/features/auth/view/pages/reset_password_page.dart';
 import '../../presentation/features/auth/view/pages/verify_otp_page.dart';
+import '../../presentation/features/demo_screen1/view/pages/demo_screen1_page.dart';
+import '../../presentation/features/demo_screen2/view/pages/demo_screen2_page.dart';
 import '../../presentation/features/error/view/pages/error_page.dart';
 import '../../presentation/features/home/view/pages/home_page.dart';
 import '../../presentation/features/onboarding/view/pages/onboarding_page.dart';
@@ -63,6 +65,16 @@ abstract class AppRouter {
         path: AppRoute.home.path,
         name: AppRoute.home.name,
         builder: (context, state) => const HomePage(),
+      ),
+      GoRoute(
+        path: AppRoute.demoScreen1.path,
+        name: AppRoute.demoScreen1.name,
+        builder: (context, state) => const DemoScreen1Page(),
+      ),
+      GoRoute(
+        path: AppRoute.demoScreen2.path,
+        name: AppRoute.demoScreen2.name,
+        builder: (context, state) => const DemoScreen2Page(),
       ),
       GoRoute(
         path: AppRoute.settings.path,

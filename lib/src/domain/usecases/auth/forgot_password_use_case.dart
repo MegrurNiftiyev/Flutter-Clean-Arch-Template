@@ -1,17 +1,12 @@
+import '../../../core/helpers/result.dart';
 import '../../repositories/auth_repository.dart';
 
 class ForgotPasswordUseCase {
-  ForgotPasswordUseCase({
-    required this.repository,
-  });
-
   final IAuthRepository repository;
 
-  Future<void> call({
-    required String email,
-  }) {
-    return repository.forgotPassword(
-      email: email,
-    );
+  const ForgotPasswordUseCase(this.repository);
+
+  Future<Result<void>> call(String email) {
+    return repository.forgotPassword(email: email);
   }
 }

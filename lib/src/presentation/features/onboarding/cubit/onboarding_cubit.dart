@@ -16,16 +16,16 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   }
 
   Future<void> completeOnboarding() async {
-    emit(state.copyWith(status: Status.Loading));
+    emit(state.copyWith(status: Status.loading));
     try {
       await cacheManager.put<bool>(
         CacheKeys.boxName,
         CacheKeys.onboardingCompleted,
         true,
       );
-      emit(state.copyWith(status: Status.Success));
+      emit(state.copyWith(status: Status.success));
     } catch (e) {
-      emit(state.copyWith(status: Status.Failure));
+      emit(state.copyWith(status: Status.failure));
     }
   }
 }

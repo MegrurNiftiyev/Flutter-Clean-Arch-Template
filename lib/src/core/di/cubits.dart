@@ -4,32 +4,29 @@ import '../../presentation/features/auth/cubit/register/register_cubit.dart';
 import '../../presentation/features/auth/cubit/reset_password/reset_password_cubit.dart';
 import '../../presentation/features/auth/cubit/verify_otp/verify_otp_cubit.dart';
 import '../../presentation/features/onboarding/cubit/onboarding_cubit.dart';
-import '../../presentation/features/settings/cubit/settings_cubit.dart';
 import '../../presentation/features/splash/cubit/splash_cubit.dart';
+import '../../presentation/global_cubits/settings/settings_cubit.dart';
 import 'dependency_injection.dart';
 
 void initializeCubits() {
   sl.registerFactory(
-    () => LoginCubit(loginUseCase: sl()),
+    () => LoginCubit(sl()),
   );
 
   sl.registerFactory(
-    () => RegisterCubit(registerUseCase: sl()),
+    () => RegisterCubit(sl()),
   );
 
   sl.registerFactory(
-    () => ForgotPasswordCubit(forgotPasswordUseCase: sl()),
+    () => ForgotPasswordCubit(sl()),
   );
 
   sl.registerFactory(
-    () => VerifyOtpCubit(verifyOtpUseCase: sl()),
+    () => VerifyOtpCubit(sl()),
   );
 
   sl.registerFactory(
-    () => ResetPasswordCubit(
-      resetPasswordUseCase: sl(),
-      loginUseCase: sl(),
-    ),
+    () => ResetPasswordCubit(sl()),
   );
 
   sl.registerFactory(
@@ -44,14 +41,7 @@ void initializeCubits() {
     ),
   );
 
-  sl.registerFactory(
-    () => SettingsCubit(
-      getThemeUseCase: sl(),
-      updateThemeUseCase: sl(),
-      getLanguageUseCase: sl(),
-      updateLanguageUseCase: sl(),
-      logoutUseCase: sl(),
-    ),
+  sl.registerLazySingleton(
+    () => SettingsCubit(sl(), sl()),
   );
 }
-
