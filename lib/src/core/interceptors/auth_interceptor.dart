@@ -13,7 +13,7 @@ class AuthInterceptor extends QueuedInterceptor {
   final EncryptedCacheManager encryptedCacheManager;
   final RefreshTokenUseCase? refreshTokenUseCase;
   final VoidCallback onSessionExpired;
-  final Dio retryDio;
+  final Dio Function() retryDio;
 
   AuthInterceptor(
     this.encryptedCacheManager, {
@@ -41,7 +41,17 @@ class AuthInterceptor extends QueuedInterceptor {
     ErrorInterceptorHandler handler,
   ) async {
     final req = err.requestOptions;
+    final eData = err.response?.data;
+    final errorCode = (eData is Map && eData['error'] is Map) ? eData['error']['code'] : null;
+
     if (err.response?.statusCode != 401 || ApiEndpoint.isPublic(req.path)) {
+      return handler.next(err);
+    }
+
+    if (errorCode != 'AUTH_TOKEN_EXPIRED') {
+      if (errorCode == 'AUTH_TOKEN_INVALID' || errorCode == 'AUTH_TOKEN_MISSING') {
+        onSessionExpired();
+      }
       return handler.next(err);
     }
 
@@ -62,9 +72,11 @@ class AuthInterceptor extends QueuedInterceptor {
     req.headers[ApiConstants.authorizationHeader] = _bearer(fresh);
 
     try {
-      handler.resolve(await retryDio.fetch(req));
+      handler.resolve(await retryDio().fetch(req));
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401) onSessionExpired();
+      if (e.response?.statusCode == 401) {
+        onSessionExpired();
+      }
       handler.next(e);
     }
   }

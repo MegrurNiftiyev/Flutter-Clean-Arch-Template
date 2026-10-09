@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/enums/language_code.dart';
+
 import '../../../core/constants/cache_keys.dart';
 import '../../../core/enums/status.dart';
 import '../../../core/helpers/result.dart';
@@ -21,7 +23,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     final lang = await cacheManager.get<String>(
             CacheKeys.boxName, CacheKeys.languageKey) ??
         'en';
-    emit(state.copyWith(isDarkMode: isDark, languageCode: lang));
+    emit(state.copyWith(isDarkMode: isDark, language: LanguageCode.fromCode(lang)));
   }
 
   Future<void> toggleTheme(bool isDark) async {
@@ -32,15 +34,14 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> changeLanguage(String languageCode) async {
     await cacheManager.put(
         CacheKeys.boxName, CacheKeys.languageKey, languageCode);
-    emit(state.copyWith(languageCode: languageCode));
+    emit(state.copyWith(language: LanguageCode.fromCode(languageCode)));
   }
 
   Future<void> logout() async {
     emit(state.copyWith(status: Status.loading));
     final result = await logoutUseCase();
-    result.fold(
-      (_) => emit(state.copyWith(status: Status.success)),
-      (e) => emit(state.copyWith(status: Status.failure, exception: e)),
-    );
+    result
+        .onSuccess((_) => emit(state.copyWith(status: Status.success)))
+        .onError((e) => emit(state.copyWith(status: Status.failure)));
   }
 }

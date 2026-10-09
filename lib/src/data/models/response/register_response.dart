@@ -13,10 +13,11 @@ class RegisterResponse {
   });
 
   factory RegisterResponse.fromJson(Map<String, dynamic> json) {
+    final tokens = json['tokens'] as Map<String, dynamic>? ?? {};
     return RegisterResponse(
-      accessToken: json['accessToken'] as String,
-      refreshToken: json['refreshToken'] as String,
-      user: UserDto.fromJson(json['user'] as Map<String, dynamic>),
+      accessToken: tokens['accessToken'] as String? ?? '',
+      refreshToken: tokens['refreshToken'] as String? ?? '',
+      user: UserDto.fromJson(json['user'] as Map<String, dynamic>? ?? {}),
     );
   }
 

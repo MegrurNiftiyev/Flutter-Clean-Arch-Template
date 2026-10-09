@@ -1,4 +1,5 @@
 import '../../core/helpers/result.dart';
+import '../../core/exceptions/settings_exception.dart';
 
 abstract class ISettingsRepository {
   Future<Result<bool>> isDarkMode();

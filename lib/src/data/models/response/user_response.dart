@@ -19,7 +19,7 @@ class UserResponse {
     return UserResponse(
       id: json['id'] as String,
       email: json['email'] as String,
-      name: json['name'] as String?,
+      name: json['fullName'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
     );
@@ -29,7 +29,7 @@ class UserResponse {
     return {
       'id': id,
       'email': email,
-      'name': name,
+      'fullName': name,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };

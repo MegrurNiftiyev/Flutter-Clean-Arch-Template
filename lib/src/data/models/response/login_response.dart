@@ -13,10 +13,11 @@ class LoginResponse {
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    final tokens = json['tokens'] as Map<String, dynamic>? ?? {};
     return LoginResponse(
-      accessToken: json['accessToken'] as String,
-      refreshToken: json['refreshToken'] as String,
-      user: UserDto.fromJson(json['user'] as Map<String, dynamic>),
+      accessToken: tokens['accessToken'] as String? ?? '',
+      refreshToken: tokens['refreshToken'] as String? ?? '',
+      user: UserDto.fromJson(json['user'] as Map<String, dynamic>? ?? {}),
     );
   }
 

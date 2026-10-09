@@ -15,7 +15,7 @@ class UserDto {
     return UserDto(
       id: json['id'] as String,
       email: json['email'] as String,
-      name: json['name'] as String?,
+      name: json['fullName'] as String?,
     );
   }
 
@@ -23,7 +23,7 @@ class UserDto {
     return {
       'id': id,
       'email': email,
-      'name': name,
+      'fullName': name,
     };
   }
 

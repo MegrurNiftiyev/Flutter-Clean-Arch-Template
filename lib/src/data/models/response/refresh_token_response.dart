@@ -8,9 +8,10 @@ class RefreshTokenResponse {
   });
 
   factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) {
+    final tokens = json['tokens'] as Map<String, dynamic>? ?? {};
     return RefreshTokenResponse(
-      accessToken: json['accessToken'] as String? ?? '',
-      refreshToken: json['refreshToken'] as String? ?? '',
+      accessToken: tokens['accessToken'] as String? ?? '',
+      refreshToken: tokens['refreshToken'] as String? ?? '',
     );
   }
 }

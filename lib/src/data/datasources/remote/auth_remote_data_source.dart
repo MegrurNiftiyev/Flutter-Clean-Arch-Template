@@ -21,77 +21,63 @@ class AuthRemoteDataSource {
   Future<LoginResponse> login(LoginRequest request) {
     return executeRequest(
       expected: AuthException.expected,
-      () async {
-        final response = await apiClient.dio.post(
-          ApiEndpoint.login.path,
-          data: request.toJson(),
-        );
-        return LoginResponse.fromJson(response.data as Map<String, dynamic>);
-      },
+      () => apiClient.dio.post(
+        ApiEndpoint.login.path,
+        data: request.toJson(),
+      ),
+      fromJson: (json) => LoginResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 
   Future<RegisterResponse> register(RegisterRequest request) {
     return executeRequest(
       expected: AuthException.expected,
-      () async {
-        final response = await apiClient.dio.post(
-          ApiEndpoint.register.path,
-          data: request.toJson(),
-        );
-        return RegisterResponse.fromJson(response.data as Map<String, dynamic>);
-      },
+      () => apiClient.dio.post(
+        ApiEndpoint.register.path,
+        data: request.toJson(),
+      ),
+      fromJson: (json) => RegisterResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 
   Future<VerifyOtpResponse> verifyOtp(VerifyOtpRequest request) {
     return executeRequest(
       expected: AuthException.expected,
-      () async {
-        final response = await apiClient.dio.post(
-          ApiEndpoint.verifyOtp.path,
-          data: request.toJson(),
-        );
-        return VerifyOtpResponse.fromJson(
-            response.data as Map<String, dynamic>);
-      },
+      () => apiClient.dio.post(
+        ApiEndpoint.verifyOtp.path,
+        data: request.toJson(),
+      ),
+      fromJson: (json) => VerifyOtpResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 
   Future<void> forgotPassword(ForgotPasswordRequest request) {
     return executeRequest(
       expected: AuthException.expected,
-      () async {
-        await apiClient.dio.post(
-          ApiEndpoint.forgotPassword.path,
-          data: request.toJson(),
-        );
-      },
+      () => apiClient.dio.post(
+        ApiEndpoint.forgotPassword.path,
+        data: request.toJson(),
+      ),
     );
   }
 
   Future<void> resetPassword(ResetPasswordRequest request) {
     return executeRequest(
       expected: AuthException.expected,
-      () async {
-        await apiClient.dio.post(
-          ApiEndpoint.resetPassword.path,
-          data: request.toJson(),
-        );
-      },
+      () => apiClient.dio.post(
+        ApiEndpoint.resetPassword.path,
+        data: request.toJson(),
+      ),
     );
   }
 
   Future<RefreshTokenResponse> refreshToken(RefreshTokenRequest request) {
     return executeRequest(
-      () async {
-        final response = await apiClient.plainDio.post(
-          ApiEndpoint.refreshToken.path,
-          data: request.toJson(),
-        );
-        return RefreshTokenResponse.fromJson(
-            response.data as Map<String, dynamic>);
-      },
+      () => apiClient.plainDio.post(
+        ApiEndpoint.refreshToken.path,
+        data: request.toJson(),
+      ),
+      fromJson: (json) => RefreshTokenResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 }

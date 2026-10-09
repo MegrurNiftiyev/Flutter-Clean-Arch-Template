@@ -3,12 +3,18 @@ import 'base_exception.dart';
 sealed class AuthException extends BaseException {
   const AuthException(super.message, super.statusCode);
 
-  static final Map<int, AuthException Function(String?)> expected = {
-    400: AuthValidationError.new,
-    401: AuthInvalidCredentials.new,
-    403: AuthEmailNotConfirmed.new,
-    409: AuthUserAlreadyExists.new,
-    429: AuthRateLimitExceeded.new,
+  static final Map<String, AuthException Function(String?)> expected = {
+    'VALIDATION_ERROR': AuthValidationError.new,
+    'HEADER_*_INVALID': AuthValidationError.new,
+    'MALFORMED_JSON': AuthValidationError.new,
+    'OTP_INVALID': AuthValidationError.new,
+    'OTP_EXPIRED': AuthValidationError.new,
+    'AUTH_INVALID_CREDENTIALS': AuthInvalidCredentials.new,
+    'AUTH_ACCOUNT_DISABLED': AuthEmailNotConfirmed.new, // mapping disabled account to email not confirmed for now, could be separate
+    'USER_EMAIL_ALREADY_EXISTS': AuthUserAlreadyExists.new,
+    'RATE_LIMIT_EXCEEDED': AuthRateLimitExceeded.new,
+    'OTP_RESEND_COOLDOWN': AuthRateLimitExceeded.new,
+    'OTP_TOO_MANY_ATTEMPTS': AuthRateLimitExceeded.new,
   };
 }
 

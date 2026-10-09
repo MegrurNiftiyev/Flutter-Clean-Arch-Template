@@ -1,3 +1,4 @@
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/enums/status.dart';
@@ -10,12 +11,11 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit(this.registerUseCase) : super(const RegisterState());
 
-  Future<void> register(String email, String password, {String? name}) async {
+  Future<void> register({required String email, required String password, String? name}) async {
     emit(state.copyWith(status: Status.loading));
-    final result = await registerUseCase(email, password, name: name);
-    result.fold(
-      (user) => emit(state.copyWith(status: Status.success)),
-      (e) => emit(state.copyWith(status: Status.failure, exception: e)),
-    );
+    final result = await registerUseCase(email: email, password: password, name: name);
+    result
+        .onSuccess((user) => emit(state.copyWith(status: Status.success)))
+        .onError((e) => emit(state.copyWith(status: Status.failure, errorMessage: e.message)));
   }
 }

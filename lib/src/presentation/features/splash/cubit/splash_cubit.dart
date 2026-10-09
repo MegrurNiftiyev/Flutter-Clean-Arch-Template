@@ -45,15 +45,14 @@ class SplashCubit extends Cubit<SplashState> {
     }
 
     final profileResult = await getUserProfileUseCase();
-    profileResult.fold(
-      (user) => emit(state.copyWith(
-        status: Status.success,
-        target: SplashTarget.authenticated,
-      )),
-      (e) => emit(state.copyWith(
-        status: Status.success,
-        target: SplashTarget.unauthenticated,
-      )),
-    );
+    profileResult
+        .onSuccess((user) => emit(state.copyWith(
+              status: Status.success,
+              target: SplashTarget.authenticated,
+            )))
+        .onError((e) => emit(state.copyWith(
+              status: Status.success,
+              target: SplashTarget.unauthenticated,
+            )));
   }
 }

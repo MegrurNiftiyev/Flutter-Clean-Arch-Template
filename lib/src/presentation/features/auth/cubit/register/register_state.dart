@@ -1,27 +1,26 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../../core/enums/status.dart';
-import '../../../../../core/exceptions/base_exception.dart';
 
 class RegisterState extends Equatable {
   final Status status;
-  final BaseException? exception;
+  final String? errorMessage;
 
   const RegisterState({
     this.status = Status.initial,
-    this.exception,
+    this.errorMessage,
   });
 
   RegisterState copyWith({
     Status? status,
-    BaseException? exception,
+    String? errorMessage,
   }) {
     return RegisterState(
       status: status ?? this.status,
-      exception: exception,
+      errorMessage: errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [status, exception];
+  List<Object?> get props => [status, errorMessage];
 }

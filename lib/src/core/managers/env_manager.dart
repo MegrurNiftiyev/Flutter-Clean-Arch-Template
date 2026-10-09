@@ -6,5 +6,5 @@ abstract class EnvManager {
   }
 
   static String get baseUrl =>
-      dotenv.get('BASE_URL', fallback: 'https://api.example.com');
+      dotenv.get('BASE_URL', fallback: 'https://node-js-clean-arc-template.onrender.com');
 }

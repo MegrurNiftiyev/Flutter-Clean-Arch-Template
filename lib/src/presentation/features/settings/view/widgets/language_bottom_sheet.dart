@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/components/custom_bottom_sheet.dart';
-import '../../../../../core/enums/app_language.dart';
+import '../../../../../core/enums/language_code.dart';
 import 'language_tile.dart';
 
 class LanguageBottomSheet extends StatelessWidget {
@@ -34,9 +34,9 @@ class LanguageBottomSheet extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: AppLanguage.values.length,
+      itemCount: LanguageCode.values.length,
       itemBuilder: (context, index) {
-        final lang = AppLanguage.values[index];
+        final lang = LanguageCode.values[index];
         final isSelected = lang.code == currentLanguageCode;
 
         return LanguageTile(

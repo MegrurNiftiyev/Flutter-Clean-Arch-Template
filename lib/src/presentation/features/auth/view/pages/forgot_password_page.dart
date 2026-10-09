@@ -61,10 +61,9 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
       body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           if (state.status == Status.failure) {
-            final exception = state.exception;
-            if (exception != null) {
-              CustomSnackBar.showError(context,
-                  message: exception.message, onRetry: onSendCode);
+            final errorMessage = state.errorMessage;
+            if (errorMessage != null) {
+              CustomSnackBar.showError(context, message: errorMessage);
             }
           } else if (state.status == Status.success) {
             context.pushNamed(

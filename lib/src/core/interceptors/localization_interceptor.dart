@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import '../constants/api_constants.dart';
-import '../enums/app_language.dart';
+import '../enums/language_code.dart';
 import '../enums/app_region.dart';
 
 class LocalizationInterceptor extends Interceptor {
-  final AppLanguage Function()? getCurrentLanguage;
+  final LanguageCode Function()? getCurrentLanguage;
   final AppRegion Function()? getCurrentRegion;
 
   LocalizationInterceptor({
@@ -14,10 +14,10 @@ class LocalizationInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final language = getCurrentLanguage?.call() ?? AppLanguage.en;
+    final language = getCurrentLanguage?.call() ?? LanguageCode.en;
     final region = getCurrentRegion?.call() ?? AppRegion.us;
 
-    options.headers[ApiConstants.acceptLanguageHeader] = language.code;
+    options.headers[ApiConstants.xLanguageHeader] = language.code;
     options.headers[ApiConstants.xRegionHeader] = region.code;
 
     super.onRequest(options, handler);

@@ -13,9 +13,10 @@ class UserRemoteDataSource {
   Future<UserResponse> getUserProfile() {
     return executeRequest(
       expected: UserException.expected,
-      () async {
-        final res = await apiClient.dio.get(ApiEndpoint.userProfile.path);
-        return UserResponse.fromJson(res.data);
+      () => apiClient.dio.get(ApiEndpoint.userProfile.path),
+      fromJson: (json) {
+        final data = json as Map<String, dynamic>;
+        return UserResponse.fromJson(data['user'] as Map<String, dynamic>);
       },
     );
   }
@@ -23,12 +24,13 @@ class UserRemoteDataSource {
   Future<UserResponse> updateUserProfile(UserUpdateRequest request) {
     return executeRequest(
       expected: UserException.expected,
-      () async {
-        final res = await apiClient.dio.put(
-          ApiEndpoint.userProfile.path,
-          data: request.toJson(),
-        );
-        return UserResponse.fromJson(res.data);
+      () => apiClient.dio.put(
+        ApiEndpoint.userProfile.path,
+        data: request.toJson(),
+      ),
+      fromJson: (json) {
+        final data = json as Map<String, dynamic>;
+        return UserResponse.fromJson(data['user'] as Map<String, dynamic>);
       },
     );
   }

@@ -1,27 +1,26 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../../core/enums/status.dart';
-import '../../../../../core/exceptions/base_exception.dart';
 
 class ForgotPasswordState extends Equatable {
   final Status status;
-  final BaseException? exception;
+  final String? errorMessage;
 
   const ForgotPasswordState({
     this.status = Status.initial,
-    this.exception,
+    this.errorMessage,
   });
 
   ForgotPasswordState copyWith({
     Status? status,
-    BaseException? exception,
+    String? errorMessage,
   }) {
     return ForgotPasswordState(
       status: status ?? this.status,
-      exception: exception,
+      errorMessage: errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [status, exception];
+  List<Object?> get props => [status, errorMessage];
 }

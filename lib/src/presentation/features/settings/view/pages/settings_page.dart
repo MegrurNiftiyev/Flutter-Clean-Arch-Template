@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_arch_template/src/presentation/global_cubits/settings/settings_cubit.dart';
 import 'package:flutter_clean_arch_template/src/presentation/global_cubits/settings/settings_state.dart';
+import '../../../../../core/enums/language_code.dart';
 
 import '../../../../../core/components/custom_dialog.dart';
 import '../../../../../core/components/custom_snack_bar.dart';
@@ -32,8 +33,9 @@ class SettingsView extends StatelessWidget {
       context: context,
       currentLanguageCode: currentLangCode,
       onLanguageSelected: (newLangCode) {
-        context.read<SettingsCubit>().changeLanguage(newLangCode);
-        context.setLocale(Locale(newLangCode));
+        final newLang = LanguageCode.fromCode(newLangCode);
+        context.read<SettingsCubit>().changeLanguage(newLang.code);
+        context.setLocale(Locale(newLang.code));
       },
     );
   }
@@ -57,8 +59,8 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (context, state) {
-        if (state.status == Status.failure && state.exception != null) {
-          CustomSnackBar.showError(context, message: state.exception!.message);
+        if (state.status == Status.failure) {
+          CustomSnackBar.showError(context, message: 'An error occurred');
         }
       },
       builder: (context, state) {
@@ -103,7 +105,7 @@ class SettingsView extends StatelessWidget {
                     style: AppTextStyles.bodyMedium,
                   ),
                   subtitle: Text(
-                    'settings.lang_${state.languageCode}'.tr(),
+                    'settings.lang_${state.language.code}'.tr(),
                     style: AppTextStyles.bodySmall,
                   ),
                   trailing: Icon(
@@ -111,7 +113,7 @@ class SettingsView extends StatelessWidget {
                     size: AppIconSizes.s24,
                     color: AppColors.textSecondary,
                   ),
-                  onTap: () => onLanguageTap(context, state.languageCode),
+                  onTap: () => onLanguageTap(context, state.language.code),
                 ),
                 const Spacer(),
                 CustomButton(

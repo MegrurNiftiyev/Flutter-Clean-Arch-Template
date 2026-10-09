@@ -9,7 +9,7 @@ import 'use_cases.dart';
 final GetIt sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  initializeManagers();
+  await initializeManagers();
   initializeNetwork();
   initializeDataSources();
   initializeRepositories();

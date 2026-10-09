@@ -74,10 +74,9 @@ class VerifyOtpViewState extends State<VerifyOtpView> {
       body: BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
         listener: (context, state) async {
           if (state.status == Status.failure) {
-            final exception = state.exception;
-            if (exception != null) {
-              CustomSnackBar.showError(context,
-                  message: exception.message, onRetry: onVerify);
+            final errorMessage = state.errorMessage;
+            if (errorMessage != null) {
+              CustomSnackBar.showError(context, message: errorMessage);
             }
           } else if (state.status == Status.success &&
               state.resetToken != null) {

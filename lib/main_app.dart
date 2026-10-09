@@ -24,30 +24,31 @@ class MainApp extends StatelessWidget {
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            title: 'general.app_title'.tr(),
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: state.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            routerConfig: AppRouter.router,
+          return ScreenUtilInit(
+            designSize: AppConfigs.designSize,
+            minTextAdapt: true,
+            splitScreenMode: true,
             builder: (context, child) {
-              ScreenUtil.init(
-                context,
-                designSize: AppConfigs.designSize,
-                minTextAdapt: true,
-                splitScreenMode: true,
-              );
-              return BlocListener<SettingsCubit, SettingsState>(
-                listenWhen: (previous, current) =>
-                    !previous.loggedOut && current.loggedOut,
-                listener: (context, state) {
-                  AppRouter.router.go(AppRoute.login.path);
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'general.app_title'.tr(),
+                theme: AppTheme.lightTheme,
+                darkTheme: AppTheme.darkTheme,
+                themeMode: state.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                routerConfig: AppRouter.router,
+                builder: (context, child) {
+                  return BlocListener<SettingsCubit, SettingsState>(
+                    listenWhen: (previous, current) =>
+                        !previous.loggedOut && current.loggedOut,
+                    listener: (context, state) {
+                      AppRouter.router.go(AppRoute.login.path);
+                    },
+                    child: child!,
+                  );
                 },
-                child: child!,
               );
             },
           );

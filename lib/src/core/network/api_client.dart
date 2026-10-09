@@ -24,6 +24,7 @@ class ApiClient {
         headers: {
           ApiConstants.contentTypeHeader: ApiConstants.applicationJson,
           ApiConstants.acceptHeader: ApiConstants.applicationJson,
+          ApiConstants.xPlatformHeader: ApiConstants.platformMobile,
         },
       ),
     );

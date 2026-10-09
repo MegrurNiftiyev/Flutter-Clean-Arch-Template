@@ -79,10 +79,9 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
       body: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
         listener: (context, state) {
           if (state.status == Status.failure) {
-            final exception = state.exception;
-            if (exception != null) {
-              CustomSnackBar.showError(context,
-                  message: exception.message, onRetry: onResetPassword);
+            final errorMessage = state.errorMessage;
+            if (errorMessage != null) {
+              CustomSnackBar.showError(context, message: errorMessage);
             }
           } else if (state.status == Status.success) {
             // Password reset & automated login successful -> redirect straight to home!

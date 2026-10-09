@@ -3,9 +3,9 @@ import 'base_exception.dart';
 sealed class UserException extends BaseException {
   const UserException(super.message, [super.statusCode]);
 
-  static final Map<int, UserException Function(String?)> expected = {
-    400: UserValidationError.new,
-    404: UserNotFound.new,
+  static final Map<String, UserException Function(String?)> expected = {
+    'VALIDATION_ERROR': UserValidationError.new,
+    'USER_NOT_FOUND': UserNotFound.new,
   };
 }
 

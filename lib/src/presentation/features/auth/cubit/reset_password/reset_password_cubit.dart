@@ -14,9 +14,8 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   Future<void> resetPassword(String resetToken, String newPassword) async {
     emit(state.copyWith(status: Status.loading));
     final result = await resetPasswordUseCase(resetToken, newPassword);
-    result.fold(
-      (_) => emit(state.copyWith(status: Status.success)),
-      (e) => emit(state.copyWith(status: Status.failure, exception: e)),
-    );
+    result
+        .onSuccess((_) => emit(state.copyWith(status: Status.success)))
+        .onError((e) => emit(state.copyWith(status: Status.failure, errorMessage: e.message)));
   }
 }

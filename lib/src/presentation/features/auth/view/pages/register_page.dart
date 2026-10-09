@@ -8,7 +8,6 @@ import '../../../../../core/constants/paddings.dart';
 import '../../../../../core/constants/spaces.dart';
 import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../core/enums/status.dart';
-import '../../../../../core/exceptions/network_exceptions.dart';
 import '../../../../../core/extensions/string_extensions.dart';
 import '../../../../../core/router/app_routes.dart';
 import '../../../../widgets/custom_button.dart';
@@ -53,10 +52,10 @@ class RegisterViewState extends State<RegisterView> {
   void onRegister() {
     if (formKey.currentState?.validate() ?? false) {
       context.read<RegisterCubit>().register(
-            emailController.text.trim(),
-            passwordController.text,
-            name: nameController.text.trim(),
-          );
+        email: emailController.text.trim(),
+        password: passwordController.text,
+        name: nameController.text.trim(),
+      );
     }
   }
 
@@ -69,15 +68,9 @@ class RegisterViewState extends State<RegisterView> {
       body: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state.status == Status.failure) {
-            final exception = state.exception;
-            if (exception == null) return;
-
-            if (exception is NoInternetException ||
-                exception is RequestTimeoutException) {
-              CustomSnackBar.showError(context,
-                  message: exception.message, onRetry: onRegister);
-            } else if (exception is! UnauthorizedException) {
-              CustomSnackBar.showError(context, message: exception.message);
+            final errorMessage = state.errorMessage;
+            if (errorMessage != null) {
+              CustomSnackBar.showError(context, message: errorMessage);
             }
           } else if (state.status == Status.success) {
             context.goNamed(AppRoute.home.name);

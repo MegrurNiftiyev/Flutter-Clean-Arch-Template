@@ -5,21 +5,23 @@ class CacheManager {
     await Hive.initFlutter();
   }
 
-  Future<Box<T>> openBox<T>(String boxName) async {
+  Future<Box<dynamic>> openBox(String boxName) async {
     if (Hive.isBoxOpen(boxName)) {
-      return Hive.box<T>(boxName);
+      return Hive.box<dynamic>(boxName);
     }
-    return await Hive.openBox<T>(boxName);
+    return await Hive.openBox<dynamic>(boxName);
   }
 
   Future<void> put<T>(String boxName, String key, T value) async {
-    final box = await openBox<T>(boxName);
+    final box = await openBox(boxName);
     await box.put(key, value);
   }
 
   Future<T?> get<T>(String boxName, String key, {T? defaultValue}) async {
-    final box = await openBox<T>(boxName);
-    return box.get(key, defaultValue: defaultValue);
+    final box = await openBox(boxName);
+    final value = box.get(key, defaultValue: defaultValue);
+    if (value is T) return value;
+    return defaultValue;
   }
 
   Future<T> getOrDefault<T>(
@@ -32,12 +34,12 @@ class CacheManager {
   }
 
   Future<void> delete<T>(String boxName, String key) async {
-    final box = await openBox<T>(boxName);
+    final box = await openBox(boxName);
     await box.delete(key);
   }
 
   Future<void> clear<T>(String boxName) async {
-    final box = await openBox<T>(boxName);
+    final box = await openBox(boxName);
     await box.clear();
   }
 }

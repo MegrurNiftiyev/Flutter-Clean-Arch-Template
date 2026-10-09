@@ -1,31 +1,30 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../../../core/enums/status.dart';
-import '../../../../../core/exceptions/base_exception.dart';
 
 class VerifyOtpState extends Equatable {
   final Status status;
-  final BaseException? exception;
+  final String? errorMessage;
   final String? resetToken;
 
   const VerifyOtpState({
     this.status = Status.initial,
-    this.exception,
+    this.errorMessage,
     this.resetToken,
   });
 
   VerifyOtpState copyWith({
     Status? status,
-    BaseException? exception,
+    String? errorMessage,
     String? resetToken,
   }) {
     return VerifyOtpState(
       status: status ?? this.status,
-      exception: exception,
+      errorMessage: errorMessage,
       resetToken: resetToken ?? this.resetToken,
     );
   }
 
   @override
-  List<Object?> get props => [status, exception, resetToken];
+  List<Object?> get props => [status, errorMessage, resetToken];
 }

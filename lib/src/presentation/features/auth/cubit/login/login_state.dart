@@ -1,27 +1,31 @@
 import 'package:equatable/equatable.dart';
-
 import '../../../../../core/enums/status.dart';
-import '../../../../../core/exceptions/base_exception.dart';
+import '../../../../../core/exceptions/auth_exception.dart';
+import '../../../../../domain/models/user_model.dart';
 
 class LoginState extends Equatable {
-  final Status status;
-  final BaseException? exception;
-
   const LoginState({
     this.status = Status.initial,
-    this.exception,
+    this.user,
+    this.errorMessage,
   });
+
+  final Status status;
+  final UserModel? user;
+  final String? errorMessage;
 
   LoginState copyWith({
     Status? status,
-    BaseException? exception,
+    UserModel? user,
+    String? errorMessage,
   }) {
     return LoginState(
       status: status ?? this.status,
-      exception: exception,
+      user: user ?? this.user,
+      errorMessage: errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [status, exception];
+  List<Object?> get props => [status, user, errorMessage];
 }
