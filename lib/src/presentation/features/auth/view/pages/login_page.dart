@@ -10,6 +10,7 @@ import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../core/enums/status.dart';
 import '../../../../../core/extensions/string_extensions.dart';
 import '../../../../../core/router/app_routes.dart';
+import '../../../../../core/theme/colors.dart';
 import '../../../../../core/theme/text_styles.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_rich_text.dart';
@@ -40,6 +41,7 @@ class LoginViewState extends State<LoginView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool rememberMe = false;
 
   @override
   void dispose() {
@@ -60,9 +62,6 @@ class LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('auth.login'.tr()),
-      ),
       body: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state.status == Status.failure) {
@@ -84,6 +83,14 @@ class LoginViewState extends State<LoginView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'auth.welcome_login'.tr(),
+                      style: AppTextStyles.displayLarge,
+                    ),
+                  ),
+                  AppSpaces.v32,
                   CustomTextField(
                     controller: emailController,
                     labelText: 'auth.email'.tr(),
@@ -105,17 +112,52 @@ class LoginViewState extends State<LoginView> {
                     ),
                   ),
                   AppSpaces.v8,
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        context.pushNamed(AppRoute.forgotPassword.name);
-                      },
-                      child: Text(
-                        'auth.forgot_password'.tr(),
-                        style: AppTextStyles.bodySmall,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            rememberMe = !rememberMe;
+                          });
+                          // TODO: Implement remember me logic later
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: Checkbox(
+                                value: rememberMe,
+                                activeColor: AppColors.primary,
+                                onChanged: (value) {
+                                  setState(() {
+                                    rememberMe = value ?? false;
+                                  });
+                                  // TODO: Implement remember me logic later
+                                },
+                              ),
+                            ),
+                            AppSpaces.h8,
+                            Text(
+                              'auth.remember_me'.tr(),
+                              style: AppTextStyles.bodySmall.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                      TextButton(
+                        onPressed: () {
+                          context.pushNamed(AppRoute.forgotPassword.name);
+                        },
+                        child: Text(
+                          'auth.forgot_password'.tr(),
+                          style: AppTextStyles.bodySmall,
+                        ),
+                      ),
+                    ],
                   ),
                   AppSpaces.v16,
                   CustomButton(

@@ -105,20 +105,20 @@ class OnboardingViewState extends State<OnboardingView> {
         builder: (context, state) {
           final isLastPage = state.currentPage == items.length - 1;
 
-          return Padding(
-            padding: AppPaddings.a16,
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: pageController,
-                    itemCount: items.length,
-                    onPageChanged: (index) {
-                      context.read<OnboardingCubit>().onPageChanged(index);
-                    },
-                    itemBuilder: (context, index) {
-                      final item = items[index];
-                      return Column(
+          return Column(
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  controller: pageController,
+                  itemCount: items.length,
+                  onPageChanged: (index) {
+                    context.read<OnboardingCubit>().onPageChanged(index);
+                  },
+                  itemBuilder: (context, index) {
+                    final item = items[index];
+                    return Padding(
+                      padding: AppPaddings.a16,
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           item.image.image(
@@ -139,10 +139,11 @@ class OnboardingViewState extends State<OnboardingView> {
                             textAlign: TextAlign.center,
                           ),
                         ],
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
+              ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
@@ -162,16 +163,18 @@ class OnboardingViewState extends State<OnboardingView> {
                   ),
                 ),
                 AppSpaces.v32,
-                CustomButton(
-                  text: isLastPage
-                      ? 'onboarding.get_started'.tr()
-                      : 'onboarding.next'.tr(),
-                  isLoading: state.status == Status.loading,
-                  onPressed: onNextPage,
+                Padding(
+                  padding: AppPaddings.a16,
+                  child: CustomButton(
+                    text: isLastPage
+                        ? 'onboarding.get_started'.tr()
+                        : 'onboarding.next'.tr(),
+                    isLoading: state.status == Status.loading,
+                    onPressed: onNextPage,
+                  ),
                 ),
                 AppSpaces.v16,
               ],
-            ),
           );
         },
       ),

@@ -4,7 +4,8 @@
     "error": "Ocurrió un error",
     "ok": "Aceptar",
     "cancel": "Cancelar",
-    "retry": "Reintentar"
+    "retry": "Reintentar",
+    "error_default": "Page not found or an unexpected error occurred."
   },
   "home": {
     "title": "Inicio",
@@ -15,13 +16,42 @@
   },
   "settings": {
     "title": "Ajustes",
-    "welcome": "Vista de Ajustes"
+    "welcome": "Vista de Ajustes",
+    "dark_mode": "Dark Mode",
+    "language": "Language",
+    "logout": "Logout",
+    "logout_confirm": "Are you sure you want to log out?",
+    "lang_en": "English",
+    "lang_az": "Azərbaycan",
+    "lang_tr": "Türkçe",
+    "lang_ru": "Русский",
+    "lang_es": "Español",
+    "lang_de": "Deutsch",
+    "lang_fr": "Français",
+    "lang_ar": "العربية"
   },
   "auth": {
     "login": "Iniciar Sesión",
     "register": "Registrarse",
     "forgot_password": "¿Olvidaste tu contraseña?",
-    "login_page": "Página de Inicio de Sesión"
+    "login_page": "Página de Inicio de Sesión",
+    "welcome_login": "Welcome",
+    "welcome_register": "Hello, let's get started",
+    "welcome_forgot_password": "Reset Password",
+    "remember_me": "Remember me",
+    "remember_password": "Remembered your password? ",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "dont_have_account": "Don't have an account? ",
+    "already_have_account": "Already have an account? ",
+    "send_code": "Send Code",
+    "verify_otp": "Verify OTP",
+    "otp_code": "OTP Code",
+    "verify": "Verify",
+    "otp_verified_success": "OTP verified successfully. Redirecting...",
+    "new_password": "New Password",
+    "reset_password": "Reset Password"
   },
   "errors": {
     "no_internet": "Sin conexión a internet",
@@ -37,5 +67,16 @@
       "rate_limit": "Demasiadas solicitudes, por favor intente más tarde",
       "email_not_confirmed": "Por favor confirme su dirección de correo electrónico"
     }
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "get_started": "Get Started",
+    "title_1": "Welcome to Clean Architecture",
+    "desc_1": "A robust starter template following Clean Architecture guidelines for Flutter.",
+    "title_2": "Modular & Production Ready",
+    "desc_2": "Equipped with Dio, Hive, GetIt, GoRouter, ScreenUtil, and EasyLocalization.",
+    "title_3": "Get Started Today",
+    "desc_3": "Start building your next high-performance Flutter application effortlessly."
   }
 }

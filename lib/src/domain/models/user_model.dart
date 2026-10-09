@@ -6,12 +6,16 @@ class UserModel extends BaseModel implements TimestampModel {
     required super.id,
     required this.email,
     this.name,
+    this.role,
+    this.isActive = true,
     this.createdAt,
     this.updatedAt,
   });
 
   final String email;
   final String? name;
+  final String? role;
+  final bool isActive;
 
   @override
   final DateTime? createdAt;

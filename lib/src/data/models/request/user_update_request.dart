@@ -10,7 +10,7 @@ class UserUpdateRequest {
   Map<String, dynamic> toJson() {
     return {
       'userId': userId,
-      if (name != null) 'name': name,
+      if (name != null) 'fullName': name,
     };
   }
 }

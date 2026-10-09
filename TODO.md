@@ -22,3 +22,4 @@
 
 ## 6. API Response Schema Alignment
 - [ ] Align API Response generic handling (`ApiResponse<T>`) and error handling schema directly with the Kotlin project reference implementation. Ensure the structure perfectly matches the backend envelope parsing strategy used in the Android/Kotlin architecture.
+

@@ -4,7 +4,8 @@
     "error": "Xəta baş verdi",
     "ok": "Oldu",
     "cancel": "Ləğv et",
-    "retry": "Yenidən cəhd et"
+    "retry": "Yenidən cəhd et",
+    "error_default": "Page not found or an unexpected error occurred."
   },
   "home": {
     "title": "Ana Səhifə",
@@ -13,15 +14,60 @@
   "splash": {
     "title": "Açılış Ekranı"
   },
+  "onboarding": {
+    "skip": "Keç",
+    "next": "İrəli",
+    "get_started": "Başla",
+    "title_1": "Təmiz Arxitekturaya Xoş Gəlmisiniz",
+    "desc_1": "Flutter üçün Təmiz Arxitektura qaydalarına əsaslanan güclü başlanğıc şablonu.",
+    "title_2": "Modulyar və İstehsala Hazır",
+    "desc_2": "Dio, Hive, GetIt, GoRouter, ScreenUtil və EasyLocalization ilə təchiz olunub.",
+    "title_3": "Bu gün başlayın",
+    "desc_3": "Növbəti yüksək performanslı Flutter tətbiqinizi asanlıqla qurmağa başlayın."
+  },
   "settings": {
     "title": "Tənzimləmələr",
-    "welcome": "Tənzimləmələr Bölməsi"
+    "welcome": "Tənzimləmələr Bölməsi",
+    "dark_mode": "Dark Mode",
+    "language": "Language",
+    "logout": "Logout",
+    "logout_confirm": "Are you sure you want to log out?",
+    "lang_en": "English",
+    "lang_az": "Azərbaycan",
+    "lang_tr": "Türkçe",
+    "lang_ru": "Русский",
+    "lang_es": "Español",
+    "lang_de": "Deutsch",
+    "lang_fr": "Français",
+    "lang_ar": "العربية"
   },
   "auth": {
     "login": "Daxil ol",
     "register": "Qeydiyyatdan keç",
     "forgot_password": "Şifrəni unutmusunuz",
-    "login_page": "Daxilolma Səhifəsi"
+    "login_page": "Daxilolma Səhifəsi",
+    "welcome_login": "Xoş gəldin",
+    "welcome_register": "Salam, gəlin başlayaq",
+    "welcome_forgot_password": "Şifrəni bərpa et",
+    "forgot_password_desc": "Email ünvanınızı daxil edin. Sizə bərpa kodu göndərəcəyik.",
+    "remember_me": "Məni xatırla",
+    "remember_password": "Şifrəni xatırladın? ",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "dont_have_account": "Hesabınız yoxdur? ",
+    "already_have_account": "Artıq hesabınız var? ",
+    "send_code": "Send Code",
+    "verify_otp": "Verify OTP",
+    "otp_code": "OTP Kod",
+    "otp_desc": "Email ünvanınıza 6 rəqəmli kod göndərdik. Bu kod yalnız 5 dəqiqə ərzində etibarlıdır.",
+    "didnt_receive_code": "Kodu almadınız?",
+    "resend_code_in": "Yenidən göndər ({} saniyə)",
+    "resend_code": "Kodu yenidən göndər",
+    "verify": "Təsdiqlə",
+    "otp_verified_success": "OTP verified successfully. Redirecting...",
+    "new_password": "New Password",
+    "reset_password": "Reset Password"
   },
   "errors": {
     "no_internet": "İnternet bağlantısı yoxdur",

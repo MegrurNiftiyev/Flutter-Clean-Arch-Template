@@ -11,6 +11,8 @@ import '../../../../../core/enums/status.dart';
 import '../../../../../core/extensions/string_extensions.dart';
 import '../../../../../core/router/app_routes.dart';
 import '../../../../widgets/custom_button.dart';
+import '../../../../widgets/custom_icon_header.dart';
+import '../../../../widgets/custom_rich_text.dart';
 import '../../../../widgets/custom_text_field.dart';
 import '../../cubit/forgot_password/forgot_password_cubit.dart';
 import '../../cubit/forgot_password/forgot_password_state.dart';
@@ -55,9 +57,6 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('auth.forgot_password'.tr()),
-      ),
       body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
         listener: (context, state) {
           if (state.status == Status.failure) {
@@ -82,6 +81,12 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CustomIconHeader(
+                    icon: Icons.mark_email_read_outlined,
+                    title: 'auth.welcome_forgot_password'.tr(),
+                    subtitle: 'auth.forgot_password_desc'.tr(),
+                  ),
+                  AppSpaces.v32,
                   CustomTextField(
                     controller: emailController,
                     labelText: 'auth.email'.tr(),
@@ -97,6 +102,16 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
                     text: 'auth.send_code'.tr(),
                     isLoading: isLoading,
                     onPressed: onSendCode,
+                  ),
+                  AppSpaces.v16,
+                  CustomRichText(
+                    texts: [
+                      'auth.remember_password'.tr(),
+                      'auth.login'.tr(),
+                    ],
+                    onTap: () {
+                      context.pop();
+                    },
                   ),
                 ],
               ),

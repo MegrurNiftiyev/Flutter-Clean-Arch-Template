@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const Color primary = Colors.deepPurple;
+  static const Color primary = Colors.green;
   static const Color secondary = Colors.amber;
   static const Color background = Color(0xFFF8F9FA);
   static const Color darkBackground = Color(0xFF121212);
@@ -18,6 +18,6 @@ abstract class AppColors {
 
   // Border & State Colors
   static const Color border = Color(0xFFBDBDBD);
-  static const Color borderFocused = Colors.deepPurple;
+  static const Color borderFocused = Colors.green;
   static const Color disabled = Color(0xFFC4C4C4);
 }

@@ -47,6 +47,18 @@ lib/
 
 ---
 
+## 🎨 Changing Logo & Splash Screen
+
+If you need to replace the app logo and regenerate the splash screen:
+1. Replace `assets/images/logo.png` with your new image.
+2. Run the following commands to reset and create the new splash screen:
+```bash
+dart run flutter_native_splash:remove
+dart run flutter_native_splash:create
+```
+
+---
+
 ## 🔒 Exceptions & Error Handling Hierarchy
 
 The template enforces a **Sealed Exception Architecture** similar to Kotlin's `NetworkException` + `BaseApiException` division. Network errors are unified, while features hold only true domain-specific exceptions.

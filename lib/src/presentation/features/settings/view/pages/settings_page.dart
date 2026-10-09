@@ -13,7 +13,6 @@ import '../../../../../core/constants/spaces.dart';
 import '../../../../../core/enums/status.dart';
 import '../../../../../core/theme/colors.dart';
 import '../../../../../core/theme/text_styles.dart';
-import '../../../../widgets/custom_button.dart';
 import '../widgets/language_bottom_sheet.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -84,7 +83,7 @@ class SettingsView extends StatelessWidget {
                   ),
                   title: Text(
                     'settings.dark_mode'.tr(),
-                    style: AppTextStyles.bodyMedium,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   trailing: Switch(
                     value: state.isDarkMode,
@@ -93,7 +92,7 @@ class SettingsView extends StatelessWidget {
                     activeThumbColor: AppColors.primary,
                   ),
                 ),
-                AppSpaces.v16,
+                AppSpaces.v8,
                 ListTile(
                   leading: Icon(
                     Icons.language_outlined,
@@ -102,27 +101,49 @@ class SettingsView extends StatelessWidget {
                   ),
                   title: Text(
                     'settings.language'.tr(),
-                    style: AppTextStyles.bodyMedium,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  subtitle: Text(
-                    'settings.lang_${state.language.code}'.tr(),
-                    style: AppTextStyles.bodySmall,
-                  ),
-                  trailing: Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: AppIconSizes.s24,
-                    color: AppColors.textSecondary,
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'settings.lang_${state.language.code}'.tr(),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      AppSpaces.h4,
+                      Icon(
+                        Icons.chevron_right_rounded,
+                        size: AppIconSizes.s24,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ],
                   ),
                   onTap: () => onLanguageTap(context, state.language.code),
                 ),
-                const Spacer(),
-                CustomButton(
-                  text: 'settings.logout'.tr(),
-                  color: AppColors.error,
-                  isLoading: state.status == Status.loading,
-                  onPressed: () => onLogoutTap(context),
+                AppSpaces.v8,
+                ListTile(
+                  leading: Icon(
+                    Icons.logout_rounded,
+                    size: AppIconSizes.s24,
+                    color: AppColors.error,
+                  ),
+                  title: Text(
+                    'settings.logout'.tr(),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: AppColors.error,
+                    ),
+                  ),
+                  trailing: state.status == Status.loading 
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : null,
+                  onTap: () => onLogoutTap(context),
                 ),
-                AppSpaces.v24,
               ],
             ),
           ),

@@ -32,8 +32,8 @@ abstract class CustomSnackBar {
           backgroundColor: effectiveColor,
           behavior: SnackBarBehavior.floating,
           margin: AppPaddings.a16,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
           ),
           content: Row(
             children: [

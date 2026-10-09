@@ -4,7 +4,8 @@
     "error": "Bir hata oluştu",
     "ok": "Tamam",
     "cancel": "İptal",
-    "retry": "Tekrar Dene"
+    "retry": "Tekrar Dene",
+    "error_default": "Page not found or an unexpected error occurred."
   },
   "home": {
     "title": "Ana Sayfa",
@@ -15,13 +16,42 @@
   },
   "settings": {
     "title": "Ayarlar",
-    "welcome": "Ayarlar Sayfası"
+    "welcome": "Ayarlar Sayfası",
+    "dark_mode": "Dark Mode",
+    "language": "Language",
+    "logout": "Logout",
+    "logout_confirm": "Are you sure you want to log out?",
+    "lang_en": "English",
+    "lang_az": "Azərbaycan",
+    "lang_tr": "Türkçe",
+    "lang_ru": "Русский",
+    "lang_es": "Español",
+    "lang_de": "Deutsch",
+    "lang_fr": "Français",
+    "lang_ar": "العربية"
   },
   "auth": {
     "login": "Giriş Yap",
     "register": "Kayıt Ol",
     "forgot_password": "Şifremi Unuttum",
-    "login_page": "Giriş Sayfası"
+    "login_page": "Giriş Sayfası",
+    "welcome_login": "Welcome",
+    "welcome_register": "Hello, let's get started",
+    "welcome_forgot_password": "Reset Password",
+    "remember_me": "Remember me",
+    "remember_password": "Remembered your password? ",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "dont_have_account": "Don't have an account? ",
+    "already_have_account": "Already have an account? ",
+    "send_code": "Send Code",
+    "verify_otp": "Verify OTP",
+    "otp_code": "OTP Code",
+    "verify": "Verify",
+    "otp_verified_success": "OTP verified successfully. Redirecting...",
+    "new_password": "New Password",
+    "reset_password": "Reset Password"
   },
   "errors": {
     "no_internet": "İnternet bağlantısı yok",
@@ -37,5 +67,16 @@
       "rate_limit": "Çok fazla istek gönderildi, lütfen daha sonra tekrar deneyin",
       "email_not_confirmed": "Lütfen e-posta adresinizi doğrulayın"
     }
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "get_started": "Get Started",
+    "title_1": "Welcome to Clean Architecture",
+    "desc_1": "A robust starter template following Clean Architecture guidelines for Flutter.",
+    "title_2": "Modular & Production Ready",
+    "desc_2": "Equipped with Dio, Hive, GetIt, GoRouter, ScreenUtil, and EasyLocalization.",
+    "title_3": "Get Started Today",
+    "desc_3": "Start building your next high-performance Flutter application effortlessly."
   }
 }

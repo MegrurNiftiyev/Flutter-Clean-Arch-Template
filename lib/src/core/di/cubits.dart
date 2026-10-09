@@ -22,7 +22,7 @@ void initializeCubits() {
   );
 
   sl.registerFactory(
-    () => VerifyOtpCubit(sl()),
+    () => VerifyOtpCubit(sl(), sl()),
   );
 
   sl.registerFactory(

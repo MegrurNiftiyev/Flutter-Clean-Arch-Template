@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_arch_template/src/core/theme/text_styles.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/components/custom_snack_bar.dart';
@@ -62,9 +63,6 @@ class RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('auth.register'.tr()),
-      ),
       body: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state.status == Status.failure) {
@@ -86,6 +84,14 @@ class RegisterViewState extends State<RegisterView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'auth.welcome_register'.tr(),
+                      style: AppTextStyles.displayLarge,
+                    ),
+                  ),
+                  AppSpaces.v32,
                   CustomTextField(
                     controller: nameController,
                     labelText: 'auth.name'.tr(),

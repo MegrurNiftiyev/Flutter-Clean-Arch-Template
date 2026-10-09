@@ -5,6 +5,8 @@ class UserResponse {
     required this.id,
     required this.email,
     this.name,
+    this.role,
+    this.isActive = true,
     this.createdAt,
     this.updatedAt,
   });
@@ -12,6 +14,8 @@ class UserResponse {
   final String id;
   final String email;
   final String? name;
+  final String? role;
+  final bool isActive;
   final String? createdAt;
   final String? updatedAt;
 
@@ -20,6 +24,8 @@ class UserResponse {
       id: json['id'] as String,
       email: json['email'] as String,
       name: json['fullName'] as String?,
+      role: json['role'] as String?,
+      isActive: json['isActive'] as bool? ?? true,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
     );
@@ -30,6 +36,8 @@ class UserResponse {
       'id': id,
       'email': email,
       'fullName': name,
+      'role': role,
+      'isActive': isActive,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -40,6 +48,8 @@ class UserResponse {
       id: id,
       email: email,
       name: name,
+      role: role,
+      isActive: isActive,
       createdAt: createdAt != null ? DateTime.tryParse(createdAt!) : null,
       updatedAt: updatedAt != null ? DateTime.tryParse(updatedAt!) : null,
     );

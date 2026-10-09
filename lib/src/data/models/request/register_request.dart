@@ -13,7 +13,7 @@ class RegisterRequest {
     return {
       'email': email,
       'password': password,
-      if (name != null) 'name': name,
+      if (name != null) 'fullName': name,
     };
   }
 }

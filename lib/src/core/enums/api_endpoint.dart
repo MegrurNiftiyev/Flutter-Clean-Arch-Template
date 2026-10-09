@@ -1,11 +1,12 @@
 enum ApiEndpoint {
-  login('/auth/login', requiresAuth: false),
-  register('/auth/register', requiresAuth: false),
-  forgotPassword('/auth/forgot-password', requiresAuth: false),
-  verifyOtp('/auth/verify-otp', requiresAuth: false),
-  resetPassword('/auth/reset-password', requiresAuth: false),
-  refreshToken('/auth/refresh', requiresAuth: false),
-  userProfile('/user/profile');
+  login('/api/v1/auth/login', requiresAuth: false),
+  register('/api/v1/auth/register', requiresAuth: false),
+  forgotPassword('/api/v1/auth/forgot-password', requiresAuth: false),
+  verifyOtp('/api/v1/auth/verify-otp', requiresAuth: false),
+  resetPassword('/api/v1/auth/change-password', requiresAuth: false),
+  refreshToken('/api/v1/auth/refresh', requiresAuth: false),
+  logout('/api/v1/auth/logout'),
+  userProfile('/api/v1/users/me');
 
   final String path;
   final bool requiresAuth;
