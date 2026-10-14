@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import '../enums/app_region.dart';
 import '../enums/language_code.dart';
-import '../extensions/language_code_extensions.dart';
 
 class LocalizationManager {
   const LocalizationManager();
@@ -12,22 +11,11 @@ class LocalizationManager {
     return LanguageCode.fromCode(systemLang);
   }
 
-  AppRegion getSystemRegion([LanguageCode? language]) {
+  AppRegion getSystemRegion() {
     final systemCountry = PlatformDispatcher.instance.locale.countryCode;
     if (systemCountry != null && systemCountry.isNotEmpty) {
-      final matched = AppRegion.values.where(
-        (r) => r.code.toUpperCase() == systemCountry.toUpperCase(),
-      );
-      if (matched.isNotEmpty) {
-        return matched.first;
-      }
+      return AppRegion.fromCode(systemCountry);
     }
-
-    final targetLang = language ?? getSystemLanguage();
-    return targetLang.defaultRegion;
-  }
-
-  AppRegion getRegionForLanguage(LanguageCode language) {
-    return language.defaultRegion;
+    return AppRegion.us;
   }
 }

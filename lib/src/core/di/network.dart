@@ -37,10 +37,10 @@ void initializeNetwork() {
         return sl<LocalizationManager>().getSystemLanguage();
       },
       getCurrentRegion: () {
-        final currentLang = sl.isRegistered<SettingsCubit>()
-            ? sl<SettingsCubit>().state.language
-            : sl<LocalizationManager>().getSystemLanguage();
-        return sl<LocalizationManager>().getSystemRegion(currentLang);
+        if (sl.isRegistered<SettingsCubit>()) {
+          return sl<SettingsCubit>().state.region;
+        }
+        return sl<LocalizationManager>().getSystemRegion();
       },
     ),
   );

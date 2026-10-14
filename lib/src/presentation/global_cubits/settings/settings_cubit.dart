@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/cache_keys.dart';
+import '../../../core/enums/app_region.dart';
 import '../../../core/enums/language_code.dart';
 import '../../../core/enums/status.dart';
 import '../../../core/helpers/result.dart';
@@ -24,6 +25,8 @@ class SettingsCubit extends Cubit<SettingsState> {
           SettingsState(
             language: (localizationManager ?? const LocalizationManager())
                 .getSystemLanguage(),
+            region: (localizationManager ?? const LocalizationManager())
+                .getSystemRegion(),
           ),
         );
 
@@ -35,14 +38,23 @@ class SettingsCubit extends Cubit<SettingsState> {
       CacheKeys.boxName,
       CacheKeys.languageKey,
     );
+    final cachedRegion = await cacheManager.get<String>(
+      CacheKeys.boxName,
+      CacheKeys.regionKey,
+    );
 
     final language = (cachedLang != null && cachedLang.isNotEmpty)
         ? LanguageCode.fromCode(cachedLang)
         : localizationManager.getSystemLanguage();
 
+    final region = (cachedRegion != null && cachedRegion.isNotEmpty)
+        ? AppRegion.fromCode(cachedRegion)
+        : localizationManager.getSystemRegion();
+
     emit(state.copyWith(
       isDarkMode: isDark,
       language: language,
+      region: region,
     ));
   }
 
@@ -55,6 +67,11 @@ class SettingsCubit extends Cubit<SettingsState> {
     await cacheManager.put(
         CacheKeys.boxName, CacheKeys.languageKey, languageCode);
     emit(state.copyWith(language: LanguageCode.fromCode(languageCode)));
+  }
+
+  Future<void> changeRegion(String regionCode) async {
+    await cacheManager.put(CacheKeys.boxName, CacheKeys.regionKey, regionCode);
+    emit(state.copyWith(region: AppRegion.fromCode(regionCode)));
   }
 
   Future<void> logout() async {

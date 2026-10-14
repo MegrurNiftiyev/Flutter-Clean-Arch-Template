@@ -19,8 +19,8 @@ class LocalizationInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final language =
         getCurrentLanguage?.call() ?? localizationManager.getSystemLanguage();
-    final region = getCurrentRegion?.call() ??
-        localizationManager.getSystemRegion(language);
+    final region =
+        getCurrentRegion?.call() ?? localizationManager.getSystemRegion();
 
     options.headers[ApiConstants.xLanguageHeader] = language.code;
     options.headers[ApiConstants.xRegionHeader] = region.code;

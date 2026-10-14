@@ -5,4 +5,5 @@ abstract class CacheKeys {
   static const String onboardingCompleted = 'ONBOARDING_COMPLETED';
   static const String themeKey = 'APP_THEME_DARK';
   static const String languageKey = 'APP_LANGUAGE';
+  static const String regionKey = 'APP_REGION';
 }

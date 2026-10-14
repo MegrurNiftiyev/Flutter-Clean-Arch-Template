@@ -25,6 +25,7 @@ void main() async {
       supportedLocales: AppConfigs.supportedLocales,
       path: AppConfigs.langPath,
       fallbackLocale: AppConfigs.fallbackLocale,
+      startLocale: Locale(sl<SettingsCubit>().state.language.code),
       child: const MainApp(),
     ),
   );
