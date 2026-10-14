@@ -18,7 +18,7 @@ void initializeNetwork() {
 
   sl.registerLazySingleton<AuthInterceptor>(
     () => AuthInterceptor(
-      sl<EncryptedCacheManager>(),
+      encryptedCacheManager: sl<EncryptedCacheManager>(),
       retryDio: () => sl<ApiClient>().plainDio,
       onSessionExpired: () {
         if (sl.isRegistered<SettingsCubit>()) {

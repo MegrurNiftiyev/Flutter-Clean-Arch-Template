@@ -4,7 +4,7 @@ import '../../repositories/settings_repository.dart';
 class LogoutUseCase {
   final ISettingsRepository repository;
 
-  LogoutUseCase(this.repository);
+  const LogoutUseCase({required this.repository});
 
   Future<Result<void>> call() {
     return repository.logout();

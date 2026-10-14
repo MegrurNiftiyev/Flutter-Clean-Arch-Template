@@ -5,7 +5,7 @@ import '../../repositories/user_repository.dart';
 class GetUserProfileUseCase {
   final IUserRepository repository;
 
-  const GetUserProfileUseCase(this.repository);
+  const GetUserProfileUseCase({required this.repository});
 
   Future<Result<UserModel>> call() {
     return repository.getUserProfile();

@@ -5,7 +5,7 @@ import '../../repositories/auth_repository.dart';
 class LoginUseCase {
   final IAuthRepository repository;
 
-  const LoginUseCase(this.repository);
+  const LoginUseCase({required this.repository});
 
   Future<Result<UserModel>> call(String email, String password) {
     return repository.login(email: email, password: password);

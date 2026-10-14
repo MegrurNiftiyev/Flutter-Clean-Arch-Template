@@ -15,8 +15,8 @@ class AuthInterceptor extends QueuedInterceptor {
   final VoidCallback onSessionExpired;
   final Dio Function() retryDio;
 
-  AuthInterceptor(
-    this.encryptedCacheManager, {
+  AuthInterceptor({
+    required this.encryptedCacheManager,
     required this.onSessionExpired,
     required this.retryDio,
     this.refreshTokenUseCase,

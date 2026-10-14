@@ -8,7 +8,7 @@ import 'forgot_password_state.dart';
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   final ForgotPasswordUseCase forgotPasswordUseCase;
 
-  ForgotPasswordCubit(this.forgotPasswordUseCase)
+  ForgotPasswordCubit({required this.forgotPasswordUseCase})
       : super(const ForgotPasswordState());
 
   Future<void> forgotPassword(String email) async {

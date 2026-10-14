@@ -10,8 +10,10 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   final VerifyOtpUseCase verifyOtpUseCase;
   final ForgotPasswordUseCase forgotPasswordUseCase;
 
-  VerifyOtpCubit(this.verifyOtpUseCase, this.forgotPasswordUseCase)
-      : super(const VerifyOtpState());
+  VerifyOtpCubit({
+    required this.verifyOtpUseCase,
+    required this.forgotPasswordUseCase,
+  }) : super(const VerifyOtpState());
 
   Future<void> verifyOtp(String email, String otpCode) async {
     emit(state.copyWith(status: Status.loading));

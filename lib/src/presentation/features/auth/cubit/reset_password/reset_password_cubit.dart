@@ -8,7 +8,7 @@ import 'reset_password_state.dart';
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   final ResetPasswordUseCase resetPasswordUseCase;
 
-  ResetPasswordCubit(this.resetPasswordUseCase)
+  ResetPasswordCubit({required this.resetPasswordUseCase})
       : super(const ResetPasswordState());
 
   Future<void> resetPassword(String resetToken, String newPassword) async {

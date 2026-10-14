@@ -15,9 +15,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   final CacheManager cacheManager;
   final LocalizationManager localizationManager;
 
-  SettingsCubit(
-    this.logoutUseCase,
-    this.cacheManager, {
+  SettingsCubit({
+    required this.logoutUseCase,
+    required this.cacheManager,
     LocalizationManager? localizationManager,
   })  : localizationManager =
             localizationManager ?? const LocalizationManager(),

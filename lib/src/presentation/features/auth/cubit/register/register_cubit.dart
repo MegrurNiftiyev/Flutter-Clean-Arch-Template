@@ -8,7 +8,7 @@ import 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   final RegisterUseCase registerUseCase;
 
-  RegisterCubit(this.registerUseCase) : super(const RegisterState());
+  RegisterCubit({required this.registerUseCase}) : super(const RegisterState());
 
   Future<void> register(
       {required String email, required String password, String? name}) async {

@@ -5,7 +5,7 @@ import '../../repositories/auth_repository.dart';
 class RegisterUseCase {
   final IAuthRepository repository;
 
-  const RegisterUseCase(this.repository);
+  const RegisterUseCase({required this.repository});
 
   Future<Result<UserModel>> call({
     required String email,

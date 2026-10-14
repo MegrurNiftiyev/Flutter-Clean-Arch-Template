@@ -6,11 +6,11 @@ import 'dependency_injection.dart';
 
 void initializeDataSources() {
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSource(sl<ApiClient>()),
+    () => AuthRemoteDataSource(apiClient: sl<ApiClient>()),
   );
 
   sl.registerLazySingleton<UserRemoteDataSource>(
-    () => UserRemoteDataSource(sl<ApiClient>()),
+    () => UserRemoteDataSource(apiClient: sl<ApiClient>()),
   );
 
   sl.registerLazySingleton<SettingsLocalDataSource>(

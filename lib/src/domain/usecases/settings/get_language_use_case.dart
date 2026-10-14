@@ -4,7 +4,7 @@ import '../../repositories/settings_repository.dart';
 class GetLanguageUseCase {
   final ISettingsRepository repository;
 
-  GetLanguageUseCase(this.repository);
+  const GetLanguageUseCase({required this.repository});
 
   Future<Result<String>> call() {
     return repository.getLanguage();

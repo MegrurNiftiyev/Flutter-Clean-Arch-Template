@@ -16,7 +16,7 @@ import '../../models/response/verify_otp_response.dart';
 class AuthRemoteDataSource {
   final ApiClient apiClient;
 
-  AuthRemoteDataSource(this.apiClient);
+  AuthRemoteDataSource({required this.apiClient});
 
   Future<LoginResponse> login(LoginRequest request) {
     return executeRequest(

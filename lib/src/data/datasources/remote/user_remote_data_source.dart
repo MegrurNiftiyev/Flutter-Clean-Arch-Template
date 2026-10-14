@@ -8,7 +8,7 @@ import '../../models/response/user_response.dart';
 class UserRemoteDataSource {
   final ApiClient apiClient;
 
-  UserRemoteDataSource(this.apiClient);
+  UserRemoteDataSource({required this.apiClient});
 
   Future<UserResponse> getUserProfile() {
     return executeRequest(

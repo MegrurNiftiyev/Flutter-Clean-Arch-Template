@@ -4,7 +4,7 @@ import '../../repositories/settings_repository.dart';
 class SetDarkModeUseCase {
   final ISettingsRepository repository;
 
-  const SetDarkModeUseCase(this.repository);
+  const SetDarkModeUseCase({required this.repository});
 
   Future<Result<void>> call(bool isDark) {
     return repository.setDarkMode(isDark);

@@ -10,23 +10,26 @@ import 'dependency_injection.dart';
 
 void initializeCubits() {
   sl.registerFactory(
-    () => LoginCubit(sl()),
+    () => LoginCubit(loginUseCase: sl()),
   );
 
   sl.registerFactory(
-    () => RegisterCubit(sl()),
+    () => RegisterCubit(registerUseCase: sl()),
   );
 
   sl.registerFactory(
-    () => ForgotPasswordCubit(sl()),
+    () => ForgotPasswordCubit(forgotPasswordUseCase: sl()),
   );
 
   sl.registerFactory(
-    () => VerifyOtpCubit(sl(), sl()),
+    () => VerifyOtpCubit(
+      verifyOtpUseCase: sl(),
+      forgotPasswordUseCase: sl(),
+    ),
   );
 
   sl.registerFactory(
-    () => ResetPasswordCubit(sl()),
+    () => ResetPasswordCubit(resetPasswordUseCase: sl()),
   );
 
   sl.registerFactory(
@@ -43,8 +46,8 @@ void initializeCubits() {
 
   sl.registerLazySingleton(
     () => SettingsCubit(
-      sl(),
-      sl(),
+      logoutUseCase: sl(),
+      cacheManager: sl(),
       localizationManager: sl(),
     ),
   );

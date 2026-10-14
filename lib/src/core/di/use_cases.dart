@@ -18,54 +18,54 @@ import 'dependency_injection.dart';
 
 void initializeUseCases() {
   sl.registerLazySingleton(
-    () => LoginUseCase(sl<IAuthRepository>()),
+    () => LoginUseCase(repository: sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => RegisterUseCase(sl<IAuthRepository>()),
+    () => RegisterUseCase(repository: sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => ForgotPasswordUseCase(sl<IAuthRepository>()),
+    () => ForgotPasswordUseCase(repository: sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => VerifyOtpUseCase(sl<IAuthRepository>()),
+    () => VerifyOtpUseCase(repository: sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => ResetPasswordUseCase(sl<IAuthRepository>()),
+    () => ResetPasswordUseCase(repository: sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => RefreshTokenUseCase(sl<IAuthRepository>()),
+    () => RefreshTokenUseCase(repository: sl<IAuthRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => GetUserProfileUseCase(sl<IUserRepository>()),
+    () => GetUserProfileUseCase(repository: sl<IUserRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => UpdateUserProfileUseCase(sl<IUserRepository>()),
+    () => UpdateUserProfileUseCase(repository: sl<IUserRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => GetThemeUseCase(sl<ISettingsRepository>()),
+    () => GetThemeUseCase(repository: sl<ISettingsRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => UpdateThemeUseCase(sl<ISettingsRepository>()),
+    () => UpdateThemeUseCase(repository: sl<ISettingsRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => GetLanguageUseCase(sl<ISettingsRepository>()),
+    () => GetLanguageUseCase(repository: sl<ISettingsRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => UpdateLanguageUseCase(sl<ISettingsRepository>()),
+    () => UpdateLanguageUseCase(repository: sl<ISettingsRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => LogoutUseCase(sl<ISettingsRepository>()),
+    () => LogoutUseCase(repository: sl<ISettingsRepository>()),
   );
 }

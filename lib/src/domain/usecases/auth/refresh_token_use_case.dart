@@ -4,7 +4,7 @@ import '../../repositories/auth_repository.dart';
 class RefreshTokenUseCase {
   final IAuthRepository repository;
 
-  const RefreshTokenUseCase(this.repository);
+  const RefreshTokenUseCase({required this.repository});
 
   Future<Result<void>> call() {
     return repository.refreshToken();
