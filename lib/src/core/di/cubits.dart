@@ -42,6 +42,10 @@ void initializeCubits() {
   );
 
   sl.registerLazySingleton(
-    () => SettingsCubit(sl(), sl()),
+    () => SettingsCubit(
+      sl(),
+      sl(),
+      localizationManager: sl(),
+    ),
   );
 }

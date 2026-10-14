@@ -1,5 +1,6 @@
 import '../managers/cache_manager.dart';
 import '../managers/encrypted_cache_manager.dart';
+import '../managers/localization_manager.dart';
 import 'dependency_injection.dart';
 
 Future<void> initializeManagers() async {
@@ -7,5 +8,8 @@ Future<void> initializeManagers() async {
   sl.registerLazySingleton<CacheManager>(() => CacheManager());
   sl.registerLazySingleton<EncryptedCacheManager>(
     () => EncryptedCacheManager(),
+  );
+  sl.registerLazySingleton<LocalizationManager>(
+    () => const LocalizationManager(),
   );
 }

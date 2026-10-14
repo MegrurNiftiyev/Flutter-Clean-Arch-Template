@@ -1,24 +1,29 @@
-import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/enums/language_code.dart';
 import '../../../core/constants/cache_keys.dart';
+import '../../../core/enums/language_code.dart';
 import '../../../core/enums/status.dart';
 import '../../../core/helpers/result.dart';
 import '../../../core/managers/cache_manager.dart';
+import '../../../core/managers/localization_manager.dart';
 import '../../../domain/usecases/settings/logout_use_case.dart';
 import 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
   final LogoutUseCase logoutUseCase;
   final CacheManager cacheManager;
+  final LocalizationManager localizationManager;
 
-  SettingsCubit(this.logoutUseCase, this.cacheManager)
-      : super(
+  SettingsCubit(
+    this.logoutUseCase,
+    this.cacheManager, {
+    LocalizationManager? localizationManager,
+  })  : localizationManager =
+            localizationManager ?? const LocalizationManager(),
+        super(
           SettingsState(
-            language: LanguageCode.fromCode(
-              PlatformDispatcher.instance.locale.languageCode,
-            ),
+            language: (localizationManager ?? const LocalizationManager())
+                .getSystemLanguage(),
           ),
         );
 
@@ -33,9 +38,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
     final language = (cachedLang != null && cachedLang.isNotEmpty)
         ? LanguageCode.fromCode(cachedLang)
-        : LanguageCode.fromCode(
-            PlatformDispatcher.instance.locale.languageCode,
-          );
+        : localizationManager.getSystemLanguage();
 
     emit(state.copyWith(
       isDarkMode: isDark,

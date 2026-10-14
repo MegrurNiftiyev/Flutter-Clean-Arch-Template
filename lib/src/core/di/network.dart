@@ -3,6 +3,7 @@ import '../interceptors/auth_interceptor.dart';
 import '../interceptors/error_interceptor.dart';
 import '../interceptors/localization_interceptor.dart';
 import '../managers/encrypted_cache_manager.dart';
+import '../managers/localization_manager.dart';
 import '../network/api_client.dart';
 import 'dependency_injection.dart';
 
@@ -28,17 +29,18 @@ void initializeNetwork() {
   );
   sl.registerLazySingleton<LocalizationInterceptor>(
     () => LocalizationInterceptor(
+      localizationManager: sl<LocalizationManager>(),
       getCurrentLanguage: () {
         if (sl.isRegistered<SettingsCubit>()) {
           return sl<SettingsCubit>().state.language;
         }
-        return LocalizationInterceptor.getSystemLanguage();
+        return sl<LocalizationManager>().getSystemLanguage();
       },
       getCurrentRegion: () {
         final currentLang = sl.isRegistered<SettingsCubit>()
             ? sl<SettingsCubit>().state.language
-            : LocalizationInterceptor.getSystemLanguage();
-        return LocalizationInterceptor.getSystemRegion(currentLang);
+            : sl<LocalizationManager>().getSystemLanguage();
+        return sl<LocalizationManager>().getSystemRegion(currentLang);
       },
     ),
   );
