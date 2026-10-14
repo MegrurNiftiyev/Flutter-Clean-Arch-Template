@@ -24,28 +24,35 @@ class CustomRichText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultNormalStyle = normalStyle ?? AppTextStyles.bodyMedium;
+    final theme = Theme.of(context);
+    final defaultNormalStyle = normalStyle ??
+        theme.textTheme.bodyMedium ??
+        AppTextStyles.bodyMedium.copyWith(color: theme.colorScheme.onSurface);
     final defaultClickableStyle =
-        (clickableStyle ?? AppTextStyles.bodyMedium).copyWith(
+        (clickableStyle ?? defaultNormalStyle).copyWith(
       color: AppColors.primary,
       fontWeight: FontWeight.bold,
       decoration: underline ? TextDecoration.underline : TextDecoration.none,
     );
 
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
+    return Text.rich(
+      TextSpan(
         style: defaultNormalStyle,
         children: [
           TextSpan(text: '${texts[0]} '),
           TextSpan(
             text: texts[1],
             style: defaultClickableStyle,
-            recognizer: TapGestureRecognizer()..onTap = onTap,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                FocusManager.instance.primaryFocus?.unfocus();
+                onTap();
+              },
           ),
           if (texts.length > 2) TextSpan(text: ' ${texts[2]}'),
         ],
       ),
+      textAlign: TextAlign.center,
     );
   }
 }

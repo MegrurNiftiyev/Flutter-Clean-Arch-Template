@@ -21,11 +21,10 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<Result<UserModel>> updateUserProfile({
-    required String userId,
     String? name,
   }) async {
     return safeCall(() async {
-      final request = UserUpdateRequest(userId: userId, name: name);
+      final request = UserUpdateRequest(name: name);
       final response = await remoteDataSource.updateUserProfile(request);
       return response.toDomain();
     });

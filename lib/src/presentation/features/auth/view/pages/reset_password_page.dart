@@ -12,6 +12,7 @@ import '../../../../../core/extensions/string_extensions.dart';
 import '../../../../../core/router/app_routes.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_text_field.dart';
+import '../../../../widgets/unfocus_scope.dart';
 import '../../cubit/reset_password/reset_password_cubit.dart';
 import '../../cubit/reset_password/reset_password_state.dart';
 
@@ -62,6 +63,7 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
   }
 
   void onResetPassword() {
+    FocusScope.of(context).unfocus();
     if (formKey.currentState?.validate() ?? false) {
       context.read<ResetPasswordCubit>().resetPassword(
             widget.resetToken,
@@ -76,49 +78,51 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
       appBar: AppBar(
         title: Text('auth.reset_password'.tr()),
       ),
-      body: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
-        listener: (context, state) {
-          if (state.status == Status.failure) {
-            final errorMessage = state.errorMessage;
-            if (errorMessage != null) {
-              CustomSnackBar.showError(context, message: errorMessage);
+      body: UnfocusScope(
+        child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
+          listener: (context, state) {
+            if (state.status == Status.failure) {
+              final errorMessage = state.errorMessage;
+              if (errorMessage != null) {
+                CustomSnackBar.showError(context, message: errorMessage);
+              }
+            } else if (state.status == Status.success) {
+              // Password reset & automated login successful -> redirect straight to home!
+              context.goNamed(AppRoute.home.name);
             }
-          } else if (state.status == Status.success) {
-            // Password reset & automated login successful -> redirect straight to home!
-            context.goNamed(AppRoute.home.name);
-          }
-        },
-        builder: (context, state) {
-          final isLoading = state.status == Status.loading;
+          },
+          builder: (context, state) {
+            final isLoading = state.status == Status.loading;
 
-          return Padding(
-            padding: AppPaddings.a16,
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTextField(
-                    controller: passwordController,
-                    labelText: 'auth.new_password'.tr(),
-                    obscureText: true,
-                    textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (_) => onResetPassword(),
-                    validator: (value) => value.validatePassword(
-                      emptyMessage: 'auth.new_password'.tr(),
+            return Padding(
+              padding: AppPaddings.a16,
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomTextField(
+                      controller: passwordController,
+                      labelText: 'auth.new_password'.tr(),
+                      obscureText: true,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => onResetPassword(),
+                      validator: (value) => value.validatePassword(
+                        emptyMessage: 'auth.new_password'.tr(),
+                      ),
                     ),
-                  ),
-                  AppSpaces.v24,
-                  CustomButton(
-                    text: 'auth.reset_password'.tr(),
-                    isLoading: isLoading,
-                    onPressed: onResetPassword,
-                  ),
-                ],
+                    AppSpaces.v24,
+                    CustomButton(
+                      text: 'auth.reset_password'.tr(),
+                      isLoading: isLoading,
+                      onPressed: onResetPassword,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

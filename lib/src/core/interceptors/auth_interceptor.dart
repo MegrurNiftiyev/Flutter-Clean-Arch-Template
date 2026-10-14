@@ -42,14 +42,16 @@ class AuthInterceptor extends QueuedInterceptor {
   ) async {
     final req = err.requestOptions;
     final eData = err.response?.data;
-    final errorCode = (eData is Map && eData['error'] is Map) ? eData['error']['code'] : null;
+    final errorCode =
+        (eData is Map && eData['error'] is Map) ? eData['error']['code'] : null;
 
     if (err.response?.statusCode != 401 || ApiEndpoint.isPublic(req.path)) {
       return handler.next(err);
     }
 
     if (errorCode != 'AUTH_TOKEN_EXPIRED') {
-      if (errorCode == 'AUTH_TOKEN_INVALID' || errorCode == 'AUTH_TOKEN_MISSING') {
+      if (errorCode == 'AUTH_TOKEN_INVALID' ||
+          errorCode == 'AUTH_TOKEN_MISSING') {
         onSessionExpired();
       }
       return handler.next(err);

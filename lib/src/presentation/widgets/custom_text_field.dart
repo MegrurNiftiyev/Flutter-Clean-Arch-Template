@@ -65,7 +65,9 @@ class CustomTextField extends StatelessWidget {
       enabled: enabled,
       readOnly: readOnly,
       maxLines: maxLines,
-      style: textStyle ?? AppTextStyles.bodyMedium,
+      style: textStyle ??
+          Theme.of(context).textTheme.bodyMedium ??
+          AppTextStyles.bodyMedium,
       decoration: InputDecoration(
         labelText: labelText,
         hintText: hintText,

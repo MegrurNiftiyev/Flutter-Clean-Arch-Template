@@ -10,7 +10,8 @@ sealed class AuthException extends BaseException {
     'OTP_INVALID': AuthValidationError.new,
     'OTP_EXPIRED': AuthValidationError.new,
     'AUTH_INVALID_CREDENTIALS': AuthInvalidCredentials.new,
-    'AUTH_ACCOUNT_DISABLED': AuthEmailNotConfirmed.new, // mapping disabled account to email not confirmed for now, could be separate
+    'AUTH_ACCOUNT_DISABLED': AuthEmailNotConfirmed
+        .new, // mapping disabled account to email not confirmed for now, could be separate
     'USER_EMAIL_ALREADY_EXISTS': AuthUserAlreadyExists.new,
     'RATE_LIMIT_EXCEEDED': AuthRateLimitExceeded.new,
     'OTP_RESEND_COOLDOWN': AuthRateLimitExceeded.new,

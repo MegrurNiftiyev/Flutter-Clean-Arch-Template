@@ -15,6 +15,7 @@ class LoginCubit extends Cubit<LoginState> {
     final result = await loginUseCase(email, password);
     result
         .onSuccess((user) => emit(state.copyWith(status: Status.success)))
-        .onError((e) => emit(state.copyWith(status: Status.failure, errorMessage: e.message)));
+        .onError((e) => emit(
+            state.copyWith(status: Status.failure, errorMessage: e.message)));
   }
 }

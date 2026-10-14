@@ -36,7 +36,8 @@ class AuthRemoteDataSource {
         ApiEndpoint.register.path,
         data: request.toJson(),
       ),
-      fromJson: (json) => RegisterResponse.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) =>
+          RegisterResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -47,7 +48,8 @@ class AuthRemoteDataSource {
         ApiEndpoint.verifyOtp.path,
         data: request.toJson(),
       ),
-      fromJson: (json) => VerifyOtpResponse.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) =>
+          VerifyOtpResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 
@@ -77,7 +79,8 @@ class AuthRemoteDataSource {
         ApiEndpoint.refreshToken.path,
         data: request.toJson(),
       ),
-      fromJson: (json) => RefreshTokenResponse.fromJson(json as Map<String, dynamic>),
+      fromJson: (json) =>
+          RefreshTokenResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 }

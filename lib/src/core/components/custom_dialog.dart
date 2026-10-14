@@ -86,7 +86,8 @@ class CustomAlertDialog extends StatelessWidget {
             ],
             Text(
               title,
-              style: AppTextStyles.titleLarge,
+              style: Theme.of(context).textTheme.titleLarge ??
+                  AppTextStyles.titleLarge,
               textAlign: TextAlign.center,
             ),
             if (subtitle != null && subtitle!.isNotEmpty) ...[

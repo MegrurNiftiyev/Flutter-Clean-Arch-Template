@@ -53,7 +53,12 @@ class CustomButton extends StatelessWidget {
       height: buttonHeight,
       width: buttonWidth,
       child: ElevatedButton(
-        onPressed: (isButtonDisabled || isLoading) ? null : onPressed,
+        onPressed: (isButtonDisabled || isLoading)
+            ? null
+            : () {
+                FocusManager.instance.primaryFocus?.unfocus();
+                onPressed?.call();
+              },
         style: ElevatedButton.styleFrom(
           backgroundColor: effectiveColor,
           disabledBackgroundColor: isLoading

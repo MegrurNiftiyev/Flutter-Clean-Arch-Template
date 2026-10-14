@@ -15,6 +15,7 @@ import '../../../../../core/theme/text_styles.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_rich_text.dart';
 import '../../../../widgets/custom_text_field.dart';
+import '../../../../widgets/unfocus_scope.dart';
 import '../../cubit/login/login_cubit.dart';
 import '../../cubit/login/login_state.dart';
 
@@ -51,6 +52,7 @@ class LoginViewState extends State<LoginView> {
   }
 
   void onLogin() {
+    FocusScope.of(context).unfocus();
     if (formKey.currentState?.validate() ?? false) {
       context.read<LoginCubit>().login(
             emailController.text.trim(),
@@ -62,124 +64,130 @@ class LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
-          if (state.status == Status.failure) {
-            final errorMessage = state.errorMessage;
-            if (errorMessage != null) {
-              CustomSnackBar.showError(context, message: errorMessage);
+      body: UnfocusScope(
+        child: BlocConsumer<LoginCubit, LoginState>(
+          listener: (context, state) {
+            if (state.status == Status.failure) {
+              final errorMessage = state.errorMessage;
+              if (errorMessage != null) {
+                CustomSnackBar.showError(context, message: errorMessage);
+              }
+            } else if (state.status == Status.success) {
+              context.goNamed(AppRoute.home.name);
             }
-          } else if (state.status == Status.success) {
-            context.goNamed(AppRoute.home.name);
-          }
-        },
-        builder: (context, state) {
-          final isLoading = state.status == Status.loading;
+          },
+          builder: (context, state) {
+            final isLoading = state.status == Status.loading;
 
-          return Padding(
-            padding: AppPaddings.a16,
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'auth.welcome_login'.tr(),
-                      style: AppTextStyles.displayLarge,
-                    ),
-                  ),
-                  AppSpaces.v32,
-                  CustomTextField(
-                    controller: emailController,
-                    labelText: 'auth.email'.tr(),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    validator: (value) => value.validateEmail(
-                      emptyMessage: 'auth.email'.tr(),
-                    ),
-                  ),
-                  AppSpaces.v16,
-                  CustomTextField(
-                    controller: passwordController,
-                    labelText: 'auth.password'.tr(),
-                    obscureText: true,
-                    textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (_) => onLogin(),
-                    validator: (value) => value.validatePassword(
-                      emptyMessage: 'auth.password'.tr(),
-                    ),
-                  ),
-                  AppSpaces.v8,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            rememberMe = !rememberMe;
-                          });
-                          // TODO: Implement remember me logic later
-                        },
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Checkbox(
-                                value: rememberMe,
-                                activeColor: AppColors.primary,
-                                onChanged: (value) {
-                                  setState(() {
-                                    rememberMe = value ?? false;
-                                  });
-                                  // TODO: Implement remember me logic later
-                                },
-                              ),
-                            ),
-                            AppSpaces.h8,
-                            Text(
-                              'auth.remember_me'.tr(),
-                              style: AppTextStyles.bodySmall.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                            ),
-                          ],
-                        ),
+            return Padding(
+              padding: AppPaddings.a16,
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'auth.welcome_login'.tr(),
+                        style: Theme.of(context).textTheme.displayLarge ??
+                            AppTextStyles.displayLarge,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          context.pushNamed(AppRoute.forgotPassword.name);
-                        },
-                        child: Text(
-                          'auth.forgot_password'.tr(),
-                          style: AppTextStyles.bodySmall,
-                        ),
+                    ),
+                    AppSpaces.v32,
+                    CustomTextField(
+                      controller: emailController,
+                      labelText: 'auth.email'.tr(),
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) => value.validateEmail(
+                        emptyMessage: 'auth.email'.tr(),
                       ),
-                    ],
-                  ),
-                  AppSpaces.v16,
-                  CustomButton(
-                    text: 'auth.login'.tr(),
-                    isLoading: isLoading,
-                    onPressed: onLogin,
-                  ),
-                  AppSpaces.v16,
-                  CustomRichText(
-                    texts: [
-                      'auth.dont_have_account'.tr(),
-                      'auth.register'.tr(),
-                    ],
-                    onTap: () {
-                      context.pushNamed(AppRoute.register.name);
-                    },
-                  ),
-                ],
+                    ),
+                    AppSpaces.v16,
+                    CustomTextField(
+                      controller: passwordController,
+                      labelText: 'auth.password'.tr(),
+                      obscureText: true,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => onLogin(),
+                      validator: (value) => value.validatePassword(
+                        emptyMessage: 'auth.password'.tr(),
+                      ),
+                    ),
+                    AppSpaces.v8,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              rememberMe = !rememberMe;
+                            });
+                            // TODO: Implement remember me logic later
+                          },
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: Checkbox(
+                                  value: rememberMe,
+                                  activeColor: AppColors.primary,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      rememberMe = value ?? false;
+                                    });
+                                    // TODO: Implement remember me logic later
+                                  },
+                                ),
+                              ),
+                              AppSpaces.h8,
+                              Text(
+                                'auth.remember_me'.tr(),
+                                style: AppTextStyles.bodySmall.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                            context.pushNamed(AppRoute.forgotPassword.name);
+                          },
+                          child: Text(
+                            'auth.forgot_password'.tr(),
+                            style: AppTextStyles.bodySmall,
+                          ),
+                        ),
+                      ],
+                    ),
+                    AppSpaces.v16,
+                    CustomButton(
+                      text: 'auth.login'.tr(),
+                      isLoading: isLoading,
+                      onPressed: onLogin,
+                    ),
+                    AppSpaces.v16,
+                    CustomRichText(
+                      texts: [
+                        'auth.dont_have_account'.tr(),
+                        'auth.register'.tr(),
+                      ],
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        context.pushNamed(AppRoute.register.name);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -84,66 +84,77 @@ class OnboardingViewState extends State<OnboardingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(
-            onPressed: onSkip,
-            child: Text(
-              'onboarding.skip'.tr(),
-              style:
-                  AppTextStyles.bodyMedium.copyWith(color: AppColors.primary),
-            ),
-          ),
-        ],
-      ),
-      body: BlocConsumer<OnboardingCubit, OnboardingState>(
-        listener: (context, state) {
-          if (state.status == Status.success) {
-            context.goNamed(AppRoute.login.name);
-          }
-        },
-        builder: (context, state) {
-          final isLastPage = state.currentPage == items.length - 1;
+      body: SafeArea(
+        child: BlocConsumer<OnboardingCubit, OnboardingState>(
+          listener: (context, state) {
+            if (state.status == Status.success) {
+              context.goNamed(AppRoute.login.name);
+            }
+          },
+          builder: (context, state) {
+            final isLastPage = state.currentPage == items.length - 1;
 
-          return Column(
-            children: [
-              Expanded(
-                child: PageView.builder(
-                  controller: pageController,
-                  itemCount: items.length,
-                  onPageChanged: (index) {
-                    context.read<OnboardingCubit>().onPageChanged(index);
-                  },
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    return Padding(
-                      padding: AppPaddings.a16,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          item.image.image(
-                            width: 180.r,
-                            height: 180.r,
-                            fit: BoxFit.contain,
-                          ),
-                          AppSpaces.v32,
-                          Text(
-                            item.title,
-                            style: AppTextStyles.titleLarge,
-                            textAlign: TextAlign.center,
-                          ),
-                          AppSpaces.v16,
-                          Text(
-                            item.description,
-                            style: AppTextStyles.bodyMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+            return Column(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: AppPaddings.h16,
+                    child: TextButton(
+                      onPressed: onSkip,
+                      child: Text(
+                        'onboarding.skip'.tr(),
+                        style: AppTextStyles.bodyMedium
+                            .copyWith(color: AppColors.primary),
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: PageView.builder(
+                    controller: pageController,
+                    itemCount: items.length,
+                    onPageChanged: (index) {
+                      context.read<OnboardingCubit>().onPageChanged(index);
+                    },
+                    itemBuilder: (context, index) {
+                      final item = items[index];
+                      return Padding(
+                        padding: AppPaddings.a16,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            item.image.image(
+                              width: 360.r,
+                              height: 360.r,
+                              fit: BoxFit.contain,
+                            ),
+                            AppSpaces.v32,
+                            Text(
+                              item.title,
+                              style: Theme.of(context).textTheme.titleLarge ??
+                                  AppTextStyles.titleLarge,
+                              textAlign: TextAlign.center,
+                            ),
+                            AppSpaces.v16,
+                            Text(
+                              item.description,
+                              style: (Theme.of(context).textTheme.bodyMedium ??
+                                      AppTextStyles.bodyMedium)
+                                  .copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withValues(alpha: 0.7),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
@@ -175,8 +186,9 @@ class OnboardingViewState extends State<OnboardingView> {
                 ),
                 AppSpaces.v16,
               ],
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

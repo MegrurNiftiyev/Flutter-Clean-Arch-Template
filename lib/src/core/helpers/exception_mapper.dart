@@ -16,10 +16,10 @@ BaseException mapDioException(DioException e, ErrorFactories expected) {
     case DioExceptionType.badResponse:
       final code = e.response?.statusCode;
       final data = e.response?.data;
-      
+
       String? errorCode;
       String? msg;
-      
+
       if (data is Map) {
         final errorObj = data['error'];
         if (errorObj is Map) {

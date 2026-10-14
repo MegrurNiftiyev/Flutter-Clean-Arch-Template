@@ -11,6 +11,7 @@ class CustomOtpField extends StatefulWidget {
   final ValueChanged<String>? onCompleted;
   final bool hasError;
   final int length;
+  final bool autofocus;
 
   const CustomOtpField({
     super.key,
@@ -18,6 +19,7 @@ class CustomOtpField extends StatefulWidget {
     this.onCompleted,
     this.hasError = false,
     this.length = 6,
+    this.autofocus = false,
   });
 
   @override
@@ -101,7 +103,7 @@ class _CustomOtpFieldState extends State<CustomOtpField>
                 focusNode: _focusNode,
                 keyboardType: TextInputType.number,
                 maxLength: widget.length,
-                autofocus: true,
+                autofocus: widget.autofocus,
                 showCursor: false,
                 decoration: const InputDecoration(counterText: ''),
               ),
@@ -131,13 +133,17 @@ class _CustomOtpFieldState extends State<CustomOtpField>
                           ? AppColors.error
                           : isCurrentFocus
                               ? AppColors.primary
-                              : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.2),
                       width: 1.5,
                     ),
                   ),
                   child: Text(
                     char,
-                    style: AppTextStyles.titleLarge,
+                    style: Theme.of(context).textTheme.titleLarge ??
+                        AppTextStyles.titleLarge,
                   ),
                 );
               }),

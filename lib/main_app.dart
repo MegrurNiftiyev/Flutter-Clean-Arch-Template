@@ -46,7 +46,12 @@ class MainApp extends StatelessWidget {
                     listener: (context, state) {
                       AppRouter.router.go(AppRoute.login.path);
                     },
-                    child: child!,
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () =>
+                          FocusManager.instance.primaryFocus?.unfocus(),
+                      child: child!,
+                    ),
                   );
                 },
               );

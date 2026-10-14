@@ -23,7 +23,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     final lang = await cacheManager.get<String>(
             CacheKeys.boxName, CacheKeys.languageKey) ??
         'en';
-    emit(state.copyWith(isDarkMode: isDark, language: LanguageCode.fromCode(lang)));
+    emit(state.copyWith(
+        isDarkMode: isDark, language: LanguageCode.fromCode(lang)));
   }
 
   Future<void> toggleTheme(bool isDark) async {

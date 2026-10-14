@@ -63,11 +63,8 @@ abstract class AppRouter {
           key: state.pageKey,
           child: const ForgotPasswordPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: animation.drive(
-                Tween(begin: const Offset(1.0, 0.0), end: Offset.zero)
-                    .chain(CurveTween(curve: Curves.easeInOut)),
-              ),
+            return FadeTransition(
+              opacity: animation,
               child: child,
             );
           },

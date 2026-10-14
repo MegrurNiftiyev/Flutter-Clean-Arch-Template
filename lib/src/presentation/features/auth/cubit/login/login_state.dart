@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import '../../../../../core/enums/status.dart';
-import '../../../../../core/exceptions/auth_exception.dart';
 import '../../../../../domain/models/user_model.dart';
 
 class LoginState extends Equatable {

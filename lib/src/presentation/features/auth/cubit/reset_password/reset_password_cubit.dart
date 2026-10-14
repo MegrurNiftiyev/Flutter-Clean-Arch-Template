@@ -16,6 +16,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     final result = await resetPasswordUseCase(resetToken, newPassword);
     result
         .onSuccess((_) => emit(state.copyWith(status: Status.success)))
-        .onError((e) => emit(state.copyWith(status: Status.failure, errorMessage: e.message)));
+        .onError((e) => emit(
+            state.copyWith(status: Status.failure, errorMessage: e.message)));
   }
 }

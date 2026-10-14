@@ -14,6 +14,7 @@ import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/custom_icon_header.dart';
 import '../../../../widgets/custom_rich_text.dart';
 import '../../../../widgets/custom_text_field.dart';
+import '../../../../widgets/unfocus_scope.dart';
 import '../../cubit/forgot_password/forgot_password_cubit.dart';
 import '../../cubit/forgot_password/forgot_password_state.dart';
 
@@ -47,6 +48,7 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   void onSendCode() {
+    FocusScope.of(context).unfocus();
     if (formKey.currentState?.validate() ?? false) {
       context.read<ForgotPasswordCubit>().forgotPassword(
             emailController.text.trim(),
@@ -57,67 +59,70 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
-        listener: (context, state) {
-          if (state.status == Status.failure) {
-            final errorMessage = state.errorMessage;
-            if (errorMessage != null) {
-              CustomSnackBar.showError(context, message: errorMessage);
+      body: UnfocusScope(
+        child: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+          listener: (context, state) {
+            if (state.status == Status.failure) {
+              final errorMessage = state.errorMessage;
+              if (errorMessage != null) {
+                CustomSnackBar.showError(context, message: errorMessage);
+              }
+            } else if (state.status == Status.success) {
+              context.pushNamed(
+                AppRoute.verifyOtp.name,
+                extra: emailController.text.trim(),
+              );
             }
-          } else if (state.status == Status.success) {
-            context.pushNamed(
-              AppRoute.verifyOtp.name,
-              extra: emailController.text.trim(),
-            );
-          }
-        },
-        builder: (context, state) {
-          final isLoading = state.status == Status.loading;
+          },
+          builder: (context, state) {
+            final isLoading = state.status == Status.loading;
 
-          return Padding(
-            padding: AppPaddings.a16,
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomIconHeader(
-                    icon: Icons.mark_email_read_outlined,
-                    title: 'auth.welcome_forgot_password'.tr(),
-                    subtitle: 'auth.forgot_password_desc'.tr(),
-                  ),
-                  AppSpaces.v32,
-                  CustomTextField(
-                    controller: emailController,
-                    labelText: 'auth.email'.tr(),
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (_) => onSendCode(),
-                    validator: (value) => value.validateEmail(
-                      emptyMessage: 'auth.email'.tr(),
+            return Padding(
+              padding: AppPaddings.a16,
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomIconHeader(
+                      icon: Icons.mark_email_read_outlined,
+                      title: 'auth.welcome_forgot_password'.tr(),
+                      subtitle: 'auth.forgot_password_desc'.tr(),
                     ),
-                  ),
-                  AppSpaces.v24,
-                  CustomButton(
-                    text: 'auth.send_code'.tr(),
-                    isLoading: isLoading,
-                    onPressed: onSendCode,
-                  ),
-                  AppSpaces.v16,
-                  CustomRichText(
-                    texts: [
-                      'auth.remember_password'.tr(),
-                      'auth.login'.tr(),
-                    ],
-                    onTap: () {
-                      context.pop();
-                    },
-                  ),
-                ],
+                    AppSpaces.v32,
+                    CustomTextField(
+                      controller: emailController,
+                      labelText: 'auth.email'.tr(),
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => onSendCode(),
+                      validator: (value) => value.validateEmail(
+                        emptyMessage: 'auth.email'.tr(),
+                      ),
+                    ),
+                    AppSpaces.v24,
+                    CustomButton(
+                      text: 'auth.send_code'.tr(),
+                      isLoading: isLoading,
+                      onPressed: onSendCode,
+                    ),
+                    AppSpaces.v16,
+                    CustomRichText(
+                      texts: [
+                        'auth.remember_password'.tr(),
+                        'auth.login'.tr(),
+                      ],
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        context.pop();
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

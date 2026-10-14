@@ -12,7 +12,6 @@ import '../../../../../core/constants/paddings.dart';
 import '../../../../../core/constants/spaces.dart';
 import '../../../../../core/enums/status.dart';
 import '../../../../../core/theme/colors.dart';
-import '../../../../../core/theme/text_styles.dart';
 import '../widgets/language_bottom_sheet.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -65,10 +64,7 @@ class SettingsView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(
-              'settings.title'.tr(),
-              style: AppTextStyles.titleLarge,
-            ),
+            title: Text('settings.title'.tr()),
           ),
           body: Padding(
             padding: AppPaddings.a16,
@@ -109,8 +105,10 @@ class SettingsView extends StatelessWidget {
                       Text(
                         'settings.lang_${state.language.code}'.tr(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
+                            ),
                       ),
                       AppSpaces.h4,
                       Icon(
@@ -132,10 +130,10 @@ class SettingsView extends StatelessWidget {
                   title: Text(
                     'settings.logout'.tr(),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: AppColors.error,
-                    ),
+                          color: AppColors.error,
+                        ),
                   ),
-                  trailing: state.status == Status.loading 
+                  trailing: state.status == Status.loading
                       ? const SizedBox(
                           width: 24,
                           height: 24,

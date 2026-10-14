@@ -16,6 +16,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     final result = await forgotPasswordUseCase(email);
     result
         .onSuccess((_) => emit(state.copyWith(status: Status.success)))
-        .onError((e) => emit(state.copyWith(status: Status.failure, errorMessage: e.message)));
+        .onError((e) => emit(
+            state.copyWith(status: Status.failure, errorMessage: e.message)));
   }
 }

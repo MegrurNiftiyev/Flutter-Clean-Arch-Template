@@ -19,7 +19,8 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     result
         .onSuccess((token) =>
             emit(state.copyWith(status: Status.success, resetToken: token)))
-        .onError((e) => emit(state.copyWith(status: Status.failure, errorMessage: e.message)));
+        .onError((e) => emit(
+            state.copyWith(status: Status.failure, errorMessage: e.message)));
   }
 
   Future<void> resendOtp(String email) async {
@@ -27,6 +28,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     final result = await forgotPasswordUseCase(email);
     result
         .onSuccess((_) => emit(state.copyWith(status: Status.initial)))
-        .onError((e) => emit(state.copyWith(status: Status.failure, errorMessage: e.message)));
+        .onError((e) => emit(
+            state.copyWith(status: Status.failure, errorMessage: e.message)));
   }
 }

@@ -37,14 +37,18 @@ class CustomIconHeader extends StatelessWidget {
         AppSpaces.v24,
         Text(
           title,
-          style: AppTextStyles.titleLarge,
+          style: Theme.of(context).textTheme.titleLarge ??
+              AppTextStyles.titleLarge,
           textAlign: TextAlign.center,
         ),
         AppSpaces.v8,
         Text(
           subtitle,
-          style: AppTextStyles.bodyMedium.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+          style: (Theme.of(context).textTheme.bodyMedium ??
+                  AppTextStyles.bodyMedium)
+              .copyWith(
+            color:
+                Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
           ),
           textAlign: TextAlign.center,
         ),

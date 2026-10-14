@@ -5,6 +5,6 @@ abstract class EnvManager {
     await dotenv.load(fileName: fileName);
   }
 
-  static String get baseUrl =>
-      dotenv.get('BASE_URL', fallback: 'https://node-js-clean-arc-template.onrender.com');
+  static String get baseUrl => dotenv.get('BASE_URL',
+      fallback: 'https://node-js-clean-arc-template.onrender.com');
 }

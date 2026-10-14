@@ -16,15 +16,36 @@ abstract class AppTheme {
         brightness: Brightness.light,
         error: AppColors.error,
       ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: false,
+        titleTextStyle:
+            AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimary),
+        iconTheme: const IconThemeData(color: AppColors.textPrimary),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: AppColors.surface,
+        titleTextStyle:
+            AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimary),
+      ),
       textTheme: TextTheme(
-        displayLarge: AppTextStyles.displayLarge,
-        displayMedium: AppTextStyles.displayMedium,
-        titleLarge: AppTextStyles.titleLarge,
-        titleMedium: AppTextStyles.titleMedium,
-        bodyLarge: AppTextStyles.bodyLarge,
-        bodyMedium: AppTextStyles.bodyMedium,
+        displayLarge:
+            AppTextStyles.displayLarge.copyWith(color: AppColors.textPrimary),
+        displayMedium:
+            AppTextStyles.displayMedium.copyWith(color: AppColors.textPrimary),
+        titleLarge:
+            AppTextStyles.titleLarge.copyWith(color: AppColors.textPrimary),
+        titleMedium:
+            AppTextStyles.titleMedium.copyWith(color: AppColors.textPrimary),
+        bodyLarge:
+            AppTextStyles.bodyLarge.copyWith(color: AppColors.textPrimary),
+        bodyMedium:
+            AppTextStyles.bodyMedium.copyWith(color: AppColors.textPrimary),
         bodySmall: AppTextStyles.bodySmall,
-        labelLarge: AppTextStyles.labelLarge,
+        labelLarge:
+            AppTextStyles.labelLarge.copyWith(color: AppColors.textPrimary),
       ),
     );
   }
@@ -40,6 +61,20 @@ abstract class AppTheme {
         seedColor: AppColors.primary,
         brightness: Brightness.dark,
         error: AppColors.error,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: false,
+        titleTextStyle:
+            AppTextStyles.titleLarge.copyWith(color: AppColors.textLight),
+        iconTheme: const IconThemeData(color: AppColors.textLight),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: AppColors.darkSurface,
+        titleTextStyle:
+            AppTextStyles.titleLarge.copyWith(color: AppColors.textLight),
       ),
       textTheme: TextTheme(
         displayLarge:

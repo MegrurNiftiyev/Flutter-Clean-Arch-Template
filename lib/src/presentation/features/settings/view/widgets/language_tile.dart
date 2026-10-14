@@ -28,7 +28,10 @@ class LanguageTile extends StatelessWidget {
               size: AppIconSizes.s24,
               color: selected
                   ? AppColors.primary
-                  : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                  : Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.6),
             )
           : null,
       title: Text(

@@ -1,5 +1,4 @@
 import '../../../core/helpers/result.dart';
-import '../../../core/exceptions/auth_exception.dart';
 import '../../repositories/auth_repository.dart';
 
 class VerifyOtpUseCase {

@@ -22,10 +22,7 @@ class DemoScreen1View extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Demo 1',
-          style: AppTextStyles.titleLarge,
-        ),
+        title: const Text('Demo 1'),
       ),
       body: Padding(
         padding: AppPaddings.a16,
@@ -41,7 +38,8 @@ class DemoScreen1View extends StatelessWidget {
               AppSpaces.v16,
               Text(
                 'Demo Feature 1',
-                style: AppTextStyles.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge ??
+                    AppTextStyles.bodyLarge,
               ),
             ],
           ),
