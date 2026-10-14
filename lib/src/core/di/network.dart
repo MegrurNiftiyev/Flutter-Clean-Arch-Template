@@ -27,7 +27,20 @@ void initializeNetwork() {
     ),
   );
   sl.registerLazySingleton<LocalizationInterceptor>(
-    () => LocalizationInterceptor(),
+    () => LocalizationInterceptor(
+      getCurrentLanguage: () {
+        if (sl.isRegistered<SettingsCubit>()) {
+          return sl<SettingsCubit>().state.language;
+        }
+        return LocalizationInterceptor.getSystemLanguage();
+      },
+      getCurrentRegion: () {
+        final currentLang = sl.isRegistered<SettingsCubit>()
+            ? sl<SettingsCubit>().state.language
+            : LocalizationInterceptor.getSystemLanguage();
+        return LocalizationInterceptor.getSystemRegion(currentLang);
+      },
+    ),
   );
   sl.registerLazySingleton<ErrorInterceptor>(() => ErrorInterceptor());
 }

@@ -18,8 +18,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SettingsCubit>(
-          create: (_) => sl<SettingsCubit>()..load(),
+        BlocProvider<SettingsCubit>.value(
+          value: sl<SettingsCubit>(),
         ),
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(

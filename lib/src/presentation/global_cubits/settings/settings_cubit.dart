@@ -1,7 +1,7 @@
+import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/enums/language_code.dart';
-
 import '../../../core/constants/cache_keys.dart';
 import '../../../core/enums/status.dart';
 import '../../../core/helpers/result.dart';
@@ -14,17 +14,33 @@ class SettingsCubit extends Cubit<SettingsState> {
   final CacheManager cacheManager;
 
   SettingsCubit(this.logoutUseCase, this.cacheManager)
-      : super(const SettingsState());
+      : super(
+          SettingsState(
+            language: LanguageCode.fromCode(
+              PlatformDispatcher.instance.locale.languageCode,
+            ),
+          ),
+        );
 
   Future<void> load() async {
     final isDark =
         await cacheManager.get<bool>(CacheKeys.boxName, CacheKeys.themeKey) ??
             false;
-    final lang = await cacheManager.get<String>(
-            CacheKeys.boxName, CacheKeys.languageKey) ??
-        'en';
+    final cachedLang = await cacheManager.get<String>(
+      CacheKeys.boxName,
+      CacheKeys.languageKey,
+    );
+
+    final language = (cachedLang != null && cachedLang.isNotEmpty)
+        ? LanguageCode.fromCode(cachedLang)
+        : LanguageCode.fromCode(
+            PlatformDispatcher.instance.locale.languageCode,
+          );
+
     emit(state.copyWith(
-        isDarkMode: isDark, language: LanguageCode.fromCode(lang)));
+      isDarkMode: isDark,
+      language: language,
+    ));
   }
 
   Future<void> toggleTheme(bool isDark) async {
