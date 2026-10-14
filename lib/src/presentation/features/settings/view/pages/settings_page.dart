@@ -13,6 +13,7 @@ import '../../../../../core/constants/spaces.dart';
 import '../../../../../core/enums/status.dart';
 import '../../../../../core/theme/colors.dart';
 import '../widgets/language_bottom_sheet.dart';
+import '../widgets/region_bottom_sheet.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -38,6 +39,16 @@ class SettingsView extends StatelessWidget {
     );
   }
 
+  void onRegionTap(BuildContext context, String currentRegionCode) {
+    RegionBottomSheet.show(
+      context: context,
+      currentRegionCode: currentRegionCode,
+      onRegionSelected: (newRegionCode) {
+        context.read<SettingsCubit>().changeRegion(newRegionCode);
+      },
+    );
+  }
+
   void onLogoutTap(BuildContext context) {
     CustomAlertDialog.show(
       context: context,
@@ -58,7 +69,7 @@ class SettingsView extends StatelessWidget {
     return BlocConsumer<SettingsCubit, SettingsState>(
       listener: (context, state) {
         if (state.status == Status.failure) {
-          CustomSnackBar.showError(context, message: 'An error occurred');
+          CustomSnackBar.showError(context, message: 'general.error'.tr());
         }
       },
       builder: (context, state) {
@@ -119,6 +130,39 @@ class SettingsView extends StatelessWidget {
                     ],
                   ),
                   onTap: () => onLanguageTap(context, state.language.code),
+                ),
+                AppSpaces.v8,
+                ListTile(
+                  leading: Icon(
+                    Icons.public_outlined,
+                    size: AppIconSizes.s24,
+                    color: AppColors.primary,
+                  ),
+                  title: Text(
+                    'settings.region'.tr(),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'settings.region_${state.region.code.toLowerCase()}'
+                            .tr(),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
+                            ),
+                      ),
+                      AppSpaces.h4,
+                      Icon(
+                        Icons.chevron_right_rounded,
+                        size: AppIconSizes.s24,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ],
+                  ),
+                  onTap: () => onRegionTap(context, state.region.code),
                 ),
                 AppSpaces.v8,
                 ListTile(

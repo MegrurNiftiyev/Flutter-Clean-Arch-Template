@@ -5,7 +5,9 @@
     "error_default": "Page not found or an unexpected error occurred.",
     "ok": "OK",
     "cancel": "Cancel",
-    "retry": "Retry"
+    "retry": "Retry",
+    "yes": "Yes",
+    "no": "No"
   },
   "home": {
     "title": "Home",
@@ -30,6 +32,7 @@
     "welcome": "Settings View",
     "dark_mode": "Dark Mode",
     "language": "Language",
+    "region": "Region",
     "logout": "Logout",
     "logout_confirm": "Are you sure you want to log out?",
     "lang_en": "English",
@@ -39,7 +42,15 @@
     "lang_es": "Español",
     "lang_de": "Deutsch",
     "lang_fr": "Français",
-    "lang_ar": "العربية"
+    "lang_ar": "العربية",
+    "region_us": "United States",
+    "region_az": "Azerbaijan",
+    "region_tr": "Turkey",
+    "region_ru": "Russia",
+    "region_es": "Spain",
+    "region_de": "Germany",
+    "region_fr": "France",
+    "region_sa": "Saudi Arabia"
   },
   "auth": {
     "login": "Login",
